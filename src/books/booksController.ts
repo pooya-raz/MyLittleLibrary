@@ -1,25 +1,27 @@
-var db = require("../databaseConnection.ts");
-interface Books {
+import { Request, Response} from 'express';
+var db = require("../databaseConnection");
+
+interface Book {
     book_title: string,
     book_id: number,
     location_id:number
 }
 
-exports.index = function(_req: any, res: { send: (arg0: any) => void; }) {
+export const index = function(req: Request, res: Response) {
     db.all(`SELECT book_title, location_id FROM books;`, [], (_err: any,rows: any) => {
         return res.send(rows);
     });
 };
 
 // Display list of all books.
-exports.book_list = function(_req: any, res: { send: (arg0: any) => void; }) {
+export const book_list = function(req: Request, res: Response) {
     db.all(`SELECT book_title, location_id FROM books;`, [], (_err: any,rows: any) => {
         return res.send(rows);
     });
 };
 
 // Display detail page for a specific book.
-exports.book_detail = function(req: { params: { id: any; }; }, res: { send: { (arg0: any): void; (arg0: string): void; }; }) {
+export const book_detail = function(req: Request, res: Response) {
     db.get(`SELECT book_title, location_id FROM books WHERE book_id = ?;`, [req.params.id], (_err: any,row: any) => {
         return row
             ? res.send(row)
@@ -28,39 +30,41 @@ exports.book_detail = function(req: { params: { id: any; }; }, res: { send: { (a
 };
 
 // Display book create form on GET.
-exports.book_create_get = function(_req: any, res: { send: (arg0: string) => void; }) {
+export const book_create_get = function(req: Request, res: Response) {
     res.send('NOT IMPLEMENTED: Book create GET');
 };
 
 // Handle book create on POST.
-exports.book_create_post = function(req: { body: { book_title: any; location_id: any; }; }, res: { send: (arg0: { book_title: any; location_id: any; }) => void; }) {
+export const book_create_post = function(req:Request, res:Response) {
+    
     //create book json
-    var book = {
+    
+    var book:Book = {
         book_title: req.body.book_title,
         location_id: req.body.location_id,
         book_id: 0
       };
+    
     // insert one row into the books table
-    db.run(`INSERT INTO books(book_title,location_id) VALUES(?,?)`, [book.book_title, book.location_id], function(err: { message: any; }) {
+    db.run(`INSERT INTO books(book_title,location_id) VALUES(?,?)`, [book.book_title, book.location_id], function(this:{lastID:number}, err: { message: any; }) {
     if (err) {
       return console.log(err.message);
     }
     // get the last insert id
-    book["book_id"] = this.lastID;
-    return res.send(book);
+    book.book_id = this.lastID;
+    return res.json(book);
   });
-    
 };
 
 // Display book delete form on GET.
-exports.book_delete_get = function(_req: any, res: { send: (arg0: string) => void; }) {
+export const book_delete_get = function(req: Request, res: Response) {
     res.send('NOT IMPLEMENTED: Book delete GET');
 };
 
 // Handle book delete on POST.
-exports.book_delete_post = function(req: { params: { id: any; }; }, res: { send: (arg0: string) => void; }) {
+export const book_delete_post = function(req: Request, res: Response) {
     // delete a row based on id
-    db.run(`DELETE FROM books WHERE rowid=?`, req.params.id, function(err: { message: any; }) {
+    db.run(`DELETE FROM books WHERE rowid=?`, req.params.id, function(this:{changes:number},err: { message: any; }) {
         if (err) {
           return console.error(err.message);
         }
@@ -70,11 +74,11 @@ exports.book_delete_post = function(req: { params: { id: any; }; }, res: { send:
 };
 
 // Display book update form on GET.
-exports.book_update_get = function(_req: any, res: { send: (arg0: string) => void; }) {
+export const book_update_get = function(req: Request, res: Response) {
     res.send('NOT IMPLEMENTED: Book update GET');
 };
 
 // Handle book update on POST.
-exports.book_update_post = function(_req: any, res: { send: (arg0: string) => void; }) {
+export const book_update_post = function(req: Request, res: Response) {
     res.send('NOT IMPLEMENTED: Book update POST');
 };

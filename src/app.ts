@@ -1,10 +1,23 @@
 // lib/app.ts
+import cookieParser = require("cookie-parser")
 import express = require("express");
 import createError = require("http-errors");
 import path = require("path");
+const PORT = process.env.PORT || 3000;
 
 // Create a new express application instance
 const app: express.Application = express();
+
+//Setup
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
+
+//
+app.get("/", (req, res) => {
+  res.send("Hello World! Again!");
+});
 
 //Routes
 var booksRouter = require('./books/booksRoutes');
@@ -12,16 +25,8 @@ var booksRouter = require('./books/booksRoutes');
 //View engine
 app.use('/books', booksRouter);
 
-//
-app.get("/", (req: any, res) => {
-  res.send("Hello World! Again!");
-});
 
 
-
-app.listen(3000, () => {
-  console.log("Example app listening on port 3000!");
-});
 
 // catch 404 and forward to error handler copied from Express default scaffolding
 app.use(function(req, res, next) {
@@ -36,6 +41,12 @@ app.use((err: any, req: any, res:any, next:any) => {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.send('Error 500');
 });
+
+app.listen(PORT, () => {
+  console.log("MyLittleLibrary start at localhost:3000");
+});
+
+
 module.exports = app;
