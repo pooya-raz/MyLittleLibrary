@@ -7,6 +7,11 @@ interface Book {
     location_id:number
 }
 
+interface BookParams{
+    book_title: string,
+    location_id: number,
+}
+
 export const index = function(req: Request, res: Response) {
     db.all(`SELECT book_title, location_id FROM books;`, [], (_err: any,rows: any) => {
         return res.send(rows);
@@ -38,20 +43,22 @@ export const book_create_get = function(req: Request, res: Response) {
 export const book_create_post = function(req:Request, res:Response) {
     
     //create book json
-    
-    var book:Book = {
+    var book_params:BookParams = {
         book_title: req.body.book_title,
-        location_id: req.body.location_id,
-        book_id: 0
+        location_id: req.body.location_id
       };
     
     // insert one row into the books table
-    db.run(`INSERT INTO books(book_title,location_id) VALUES(?,?)`, [book.book_title, book.location_id], function(this:{lastID:number}, err: { message: any; }) {
+    db.run(`INSERT INTO books(book_title,location_id) VALUES(?,?)`, [book_params.book_title, book_params.location_id], function(this:{lastID:number}, err: { message: any; }) {
     if (err) {
       return console.log(err.message);
     }
     // get the last insert id
-    book.book_id = this.lastID;
+    const book: Book = {
+        book_title: req.body.book_title,
+        location_id: req.body.location_id,
+        book_id: this.lastID
+    }
     return res.json(book);
   });
 };

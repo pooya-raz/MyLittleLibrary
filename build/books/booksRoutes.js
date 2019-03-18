@@ -19,12 +19,4 @@ router.post("/:id/update", booksController.book_update_post);
 router.get("/:id", booksController.book_detail);
 // GET request for list of all Book items.
 router.get("/", booksController.book_list);
-/*
-router.post('/', function(req, res, next){
-    const book = {
-        book_title: req.body.book_title
-    };
-    return res.send(book);
-});
-*/
 module.exports = router;

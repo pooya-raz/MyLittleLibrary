@@ -29,8 +29,7 @@ exports.book_create_post = function (req, res) {
     //create book json
     var book = {
         book_title: req.body.book_title,
-        location_id: req.body.location_id,
-        book_id: 0
+        location_id: req.body.location_id
     };
     // insert one row into the books table
     db.run(`INSERT INTO books(book_title,location_id) VALUES(?,?)`, [book.book_title, book.location_id], function (err) {
