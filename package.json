@@ -1,0 +1,41 @@
+{
+  "name": "mylittlelibrary",
+  "version": "0.0.1",
+  "description": "This is a RESTful api that will keep track of books across various locations, and who they are borrowed from and lent to.",
+  "main": "build/app.js",
+  "scripts": {
+    "test": "test",
+    "tsc": "tsc",
+    "dev": "ts-node-dev --transpileOnly ./src/app.ts",
+    "prod": "tsc && node ./build/app.js"
+  },
+  "author": "Chris Pooya Razavian",
+  "license": "ISC",
+  "dependencies": {
+    "@types/express": "^4.16.1",
+    "@types/http-errors": "^1.6.1",
+    "@types/sqlite3": "^3.1.5",
+    "db-migrate": "^0.11.5",
+    "db-migrate-sqlite3": "^0.4.0",
+    "express": "^4.16.4",
+    "sqlite3": "^4.0.6",
+    "ts-node-dev": "^1.0.0-pre.32",
+    "typescript": "^3.3.3333"
+  },
+  "devDependencies": {
+    "@types/node": "^11.11.3"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "**/*.test.ts",
+      "**/*.spec.ts",
+      ".git",
+      "node_modules"
+    ],
+    "watch": [
+      "src"
+    ],
+    "exec": "npm run dev",
+    "ext": "ts"
+  }
+}
