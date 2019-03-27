@@ -1,8 +1,8 @@
 language: node.js
 node_js:
   -"11.11.0"
- cache:
- directories:
+cache:
+directories:
   - node_modules
 
 before_script:
