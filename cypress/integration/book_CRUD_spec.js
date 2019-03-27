@@ -25,7 +25,7 @@ describe('see if new book is available', () => {
           .its('body')
           .should('include',{book_title: "Cypress Book1", location_id: null});
       });
-    /*
+    /* You can also write this test with expect
      it('should have the newly added book', () => {
          cy.request('http://127.0.0.1:3000/books')
          .then((response) => {
