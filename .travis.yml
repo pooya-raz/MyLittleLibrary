@@ -12,4 +12,4 @@ script:
   # run unit tests:
  
   # run E2E tests:
-  - $(npm bin)/cypress run --record
+  - ./node_modules/.bin/cypress run --record
