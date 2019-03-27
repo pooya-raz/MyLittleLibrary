@@ -1,0 +1,16 @@
+language: node.js
+node_js:
+  -"11.11.0"
+ cache:
+ directories:
+  - node_modules
+
+before_script:
+  - yarn build
+  - yarn start --silent &
+  
+script:
+  # run unit tests:
+  - yarn tests
+  # run E2E tests:
+  - $(npm bin)/cypress run --record
