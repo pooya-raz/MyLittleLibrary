@@ -10,9 +10,10 @@ cache:
     - ~/.cache
 install:
   - npm ci
+
 before_script:
   ## runs the 'start' script which
-  ## boots our local app server on port 8888
+  ## boots our local app server on port 3000
   ## which cypress expects to be running
   ## -----------------------------------
   ## the '-- --silent' passes arguments
