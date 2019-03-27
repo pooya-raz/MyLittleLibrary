@@ -27,17 +27,21 @@ exports.book_create_get = function (req, res) {
 // Handle book create on POST.
 exports.book_create_post = function (req, res) {
     //create book json
-    var book = {
+    var book_params = {
         book_title: req.body.book_title,
         location_id: req.body.location_id
     };
     // insert one row into the books table
-    db.run(`INSERT INTO books(book_title,location_id) VALUES(?,?)`, [book.book_title, book.location_id], function (err) {
+    db.run(`INSERT INTO books(book_title,location_id) VALUES(?,?)`, [book_params.book_title, book_params.location_id], function (err) {
         if (err) {
             return console.log(err.message);
         }
         // get the last insert id
-        book.book_id = this.lastID;
+        const book = {
+            book_title: req.body.book_title,
+            location_id: req.body.location_id,
+            book_id: this.lastID
+        };
         return res.json(book);
     });
 };

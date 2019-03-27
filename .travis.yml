@@ -6,11 +6,10 @@ directories:
   - node_modules
 
 before_script:
-  - yarn build
-  - yarn start --silent &
+  - npm run prod &
   
 script:
   # run unit tests:
-  - yarn tests
+ 
   # run E2E tests:
   - $(npm bin)/cypress run --record
