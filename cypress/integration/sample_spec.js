@@ -1,6 +1,6 @@
 describe('My First Test', function () {
     it('Get a list of books', function () {
-        cy.request('http://127.0.0.1:3000/books')
+        cy.request('http://127.0.0.1:3000/books');
     })
 })
 
