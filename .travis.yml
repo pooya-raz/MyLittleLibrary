@@ -27,6 +27,7 @@ before_script:
   ## we use the '&' ampersand which tells
   ## travis to run this process in the background
   ## else it would block execution and hang travis
+  - npx db-migrate up -env dev --config './db/database.json' -m './db/migrations/'
   - npm run prod --silent &
 script:
   - $(npm bin)/cypress run --record --key dba52a70-a752-4120-9f56-37b84c8ecc9f
