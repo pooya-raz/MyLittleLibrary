@@ -1,7 +1,6 @@
 // lib/app.ts
 import cookieParser = require("cookie-parser")
 import express = require("express");
-import createError = require("http-errors");
 import path = require("path");
 const PORT = process.env.PORT || 3001;
 
@@ -14,36 +13,24 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-//
-app.get("/", (req, res) => {
-  res.send("Hello World! Again!");
-});
-
 //Routes
 var booksRouter = require('./books/booksRoutes');
 
 //View engine
 app.use('/api/books', booksRouter);
 
-// catch 404 and forward to error handler copied from Express default scaffolding
-app.use(function(req, res, next) {
-  next(createError(404));
-});
+if (process.env.NODE_ENV === 'production') {
 
-// error handler copied from Express default scaffolding
-app.use((err: any, req: any, res:any, next:any) => {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+  // Handle React routing, return all requests to React app
+  app.use(express.static(path.join(__dirname, '/../client/build')));
 
-  // render the error page
-  res.status(err.status || 500);
-  res.send('Error 500');
-});
+  app.get('*', function (req, res) {
+    res.sendFile(path.join(__dirname, '/../client/build', 'index.html'));
+  });
 
+}
 app.listen(PORT, () => {
-  console.log("MyLittleLibrary start at localhost:3001");
+  console.log(`MyLittleLibrary start at localhost:${PORT}`);
 });
-
 
 module.exports = app;

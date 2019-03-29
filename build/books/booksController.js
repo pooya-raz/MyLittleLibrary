@@ -2,19 +2,24 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var db = require("../databaseConnection");
 exports.index = function (req, res) {
-    db.all(`SELECT book_title, location_id FROM books;`, [], (_err, rows) => {
+    db.all(`SELECT book_title, location_id FROM books;`, [], (err, rows) => {
         return res.send(rows);
     });
 };
 // Display list of all books.
 exports.book_list = function (req, res) {
-    db.all(`SELECT book_title, location_id FROM books;`, [], (_err, rows) => {
-        return res.send(rows);
+    db.all(`SELECT book_title, location_id FROM books;`, [], (err, rows) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            return res.send(rows);
+        }
     });
 };
 // Display detail page for a specific book.
 exports.book_detail = function (req, res) {
-    db.get(`SELECT book_title, location_id FROM books WHERE book_id = ?;`, [req.params.id], (_err, row) => {
+    db.get(`SELECT book_id, book_title, location_name FROM books JOIN locations USING (location_id) WHERE book_id = ?;`, [req.params.id], (err, row) => {
         return row
             ? res.send(row)
             : res.send(`No book found with the id ${req.params.id}`);
