@@ -50,7 +50,7 @@ class BookForm extends Component<MyProps, MyState>{
     */
 
     handleSubmit(event: any) {
-        fetch('http://127.0.0.1:3000/books/create', {
+        fetch('/api/books/create', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',

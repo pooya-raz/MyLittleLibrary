@@ -15,12 +15,12 @@ class LibraryList extends Component<MyProps, MyState> {
     }
     componentDidMount() {
         this.setState({ isLoading: true });
-        fetch('http://127.0.0.1:3000/books')
+        fetch('/api/books')
             .then(response => {
                 if (response.ok) {
                     return response.json();
                 } else {
-                    throw new Error('Something went wrong fetching data from http://127.0.0.1:3000/books');
+                    throw new Error('Something went wrong fetching data from /api/books');
                 }
             })
             .then(data => this.setState({ books: data, isLoading: false }))
