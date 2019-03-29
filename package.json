@@ -7,7 +7,7 @@
     "test": "test",
     "tsc": "tsc",
     "dev": "concurrently --kill-others-on-fail \"ts-node-dev --transpileOnly ./src/app.ts\" \"yarn client\"",
-    "prod": "tsc && node ./build/app.js",
+    "prod": "tsc && env NODE_ENV=production node ./build/app.js",
     "client": "cd client && yarn start"
   },
   "author": "Chris Pooya Razavian",
