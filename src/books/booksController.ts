@@ -13,21 +13,25 @@ interface BookParams{
 }
 
 export const index = function(req: Request, res: Response) {
-    db.all(`SELECT book_title, location_id FROM books;`, [], (_err: any,rows: any) => {
+    db.all(`SELECT book_title, location_id FROM books;`, [], (err: any,rows: any) => {
         return res.send(rows);
     });
 };
 
 // Display list of all books.
 export const book_list = function(req: Request, res: Response) {
-    db.all(`SELECT book_title, location_id FROM books;`, [], (_err: any,rows: any) => {
-        return res.send(rows);
+    db.all(`SELECT book_title, location_id FROM books;`, [], (err: Error,rows: any) => {
+        if (err){
+            console.log(err)
+        } else{
+            return res.send(rows);
+        }
     });
 };
 
 // Display detail page for a specific book.
 export const book_detail = function(req: Request, res: Response) {
-    db.get(`SELECT book_title, location_id FROM books WHERE book_id = ?;`, [req.params.id], (_err: any,row: any) => {
+    db.get(`SELECT book_id, book_title, location_name FROM books JOIN locations USING (location_id) WHERE book_id = ?;`, [req.params.id], (err: Error,row: Book) => {
         return row
             ? res.send(row)
             : res.send(`No book found with the id ${req.params.id}`)
@@ -40,7 +44,8 @@ export const book_create_get = function(req: Request, res: Response) {
 };
 
 // Handle book create on POST.
-export const book_create_post = function(req:Request, res:Response) {
+
+export const book_create_post = function(req:Request, res:Response):void {
     
     //create book json
     var book_params:BookParams = {
