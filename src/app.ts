@@ -23,7 +23,7 @@ app.get("/", (req, res) => {
 var booksRouter = require('./books/booksRoutes');
 
 //View engine
-app.use('/books', booksRouter);
+app.use('/api/books', booksRouter);
 
 
 
