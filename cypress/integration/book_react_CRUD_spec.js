@@ -1,12 +1,13 @@
-describe('Visit the homepage', () => {
-    it('have the name MyLittleLibrary', () => {
+const url = Cypress.env('react');
+describe('New Book Page', () => {
+    it('should autofocus on the formTitle', () => {
         cy
-            .visit('http://127.0.0.1:3001/new_book')
+            .visit(url + '/new_book')
             .focused()
             .should('have.id', 'formTitle');
         });
-    it.only('accepts input', () => {
-        cy.visit('http://127.0.0.1:3001/new_book');
+    it('accepts input', () => {
+        cy.visit(url + '/new_book');
         cy.get('.formTitle');
 
     })

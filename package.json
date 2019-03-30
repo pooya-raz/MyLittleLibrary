@@ -12,7 +12,7 @@
     "travis-ci-server":"env NODE_ENV=production node ./build/app.js",
     "prod": "tsc && npm run build-react",
     "build-react": "cd client && npm run build",
-    "cypress": "cypress open"
+    "cypress": "cypress open --env react=localhost:3001,api_server=localhost:3000/api"
   },
   "author": "Chris Pooya Razavian",
   "license": "ISC",

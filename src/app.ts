@@ -2,10 +2,7 @@
 import cookieParser = require("cookie-parser")
 import express = require("express");
 import path = require("path");
-var PORT = process.env.PORT || 3001;
-if (process.env.NODE_ENV === 'production') {
-  PORT = process.env.PORT || 3000;
-}
+const PORT = process.env.PORT || 3000;
 
 // Create a new express application instance
 const app: express.Application = express();
@@ -31,7 +28,7 @@ if (process.env.NODE_ENV === 'production') {
     res.sendFile(path.join(__dirname, '/../client/build', 'index.html'));
   });
 
-}
+} 
 app.listen(PORT, () => {
   console.log(`MyLittleLibrary start at localhost:${PORT}`);
 });
