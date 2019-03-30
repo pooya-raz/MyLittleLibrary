@@ -18,8 +18,8 @@ describe('New Book Page', () => {
         it('Should submit a form', () => {
             cy.get('#formTitle')
             .type('Cypress is Awesome!')
-            .type('{enter}')
-        })
-    })
+            .type('{enter}');
+        });
+    });
 
     });
