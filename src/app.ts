@@ -2,7 +2,10 @@
 import cookieParser = require("cookie-parser")
 import express = require("express");
 import path = require("path");
-const PORT = process.env.PORT || 3001;
+var PORT = process.env.PORT || 3001;
+if (process.env.NODE_ENV === 'production') {
+  PORT = process.env.PORT || 3000;
+}
 
 // Create a new express application instance
 const app: express.Application = express();
