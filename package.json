@@ -8,7 +8,7 @@
     "tsc": "tsc",
     "dev": "concurrently --kill-others-on-fail \"ts-node-dev --transpileOnly ./src/app.ts\" \"yarn client\"",
     "client": "cd client && yarn start",
-    "travis-ci": "yarn prod && env NODE_ENV=production node ./build/app.js",
+    "travis-ci": "cd client && yarn && cd .. && yarn prod && env NODE_ENV=production node ./build/app.js",
     "prod": "tsc && yarn build-react",
     "build-react": "cd client && yarn build",
     "cypress": "cypress open"
