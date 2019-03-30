@@ -6,11 +6,12 @@
   "scripts": {
     "test": "test",
     "tsc": "tsc",
-    "dev": "concurrently --kill-others-on-fail \"ts-node-dev --transpileOnly ./src/app.ts\" \"yarn client\"",
-    "client": "cd client && yarn start",
-    "travis-ci": "cd client && yarn && cd .. && yarn prod && env NODE_ENV=production node ./build/app.js",
-    "prod": "tsc && yarn build-react",
-    "build-react": "cd client && yarn build",
+    "dev": "concurrently --kill-others-on-fail \"ts-node-dev --transpileOnly ./src/app.ts\" \"npm run client\"",
+    "client": "cd client && npm run start",
+    "travis-ci-build": "tsc && cd client && npm install && npm run build",
+    "travis-ci-server":"env NODE_ENV=production node ./build/app.js",
+    "prod": "tsc && npm run build-react",
+    "build-react": "cd client && npm run build",
     "cypress": "cypress open"
   },
   "author": "Chris Pooya Razavian",
