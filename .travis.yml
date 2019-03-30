@@ -31,4 +31,4 @@ before_script:
   - npm run travis-ci-build 
   - npm run travis-ci-server --silent &
 script:
-  - $(npm bin)/cypress run --record --key dba52a70-a752-4120-9f56-37b84c8ecc9f
+  - $(npm bin)/cypress run --record --key dba52a70-a752-4120-9f56-37b84c8ecc9f --env react=localhost:3000,api_server=localhost:3000/api
