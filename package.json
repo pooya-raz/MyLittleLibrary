@@ -9,7 +9,8 @@
     "dev": "concurrently --kill-others-on-fail \"ts-node-dev --transpileOnly ./src/app.ts\" \"yarn client\"",
     "prod": "tsc && yarn build-react && env NODE_ENV=production node ./build/app.js",
     "client": "cd client && yarn start",
-    "build-react": "cd client && yarn build"
+    "build-react": "cd client && yarn build",
+    "cypress": "cypress open"
   },
   "author": "Chris Pooya Razavian",
   "license": "ISC",
