@@ -71,7 +71,12 @@ class BookForm extends Component<MyProps, MyState>{
                 <Form onSubmit={this.handleSubmit}>
                     <Form.Group controlId="formTitle">
                         <Form.Label>Title</Form.Label>
-                        <Form.Control type="text" placeholder="Enter Title" name="book_title" onChange={this.handleChange("book_title")} />
+                        <Form.Control 
+                            type="text" 
+                            placeholder="Enter Title" 
+                            name="book_title" 
+                            onChange={this.handleChange("book_title")} 
+                            autoFocus/>
                     </Form.Group>
                     <Form.Group controlId="formAuthor">
                         <Form.Label>Author</Form.Label>
