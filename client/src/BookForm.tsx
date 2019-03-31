@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
-type MyProps = {};
+import axios from 'axios';
+type MyProps = {
+    history: Array<string>
+};
 /*
 type MyState = { 
     book_title: string, 
@@ -13,19 +16,19 @@ type MyState = {
 };
 */
 type MyState = any
-type Book ={
+type Book = {
     book_title: string,
     location_id: number,
 }
 class BookForm extends Component<MyProps, MyState>{
     constructor(props: any) {
         super(props);
-        this.state = { 
-            book_title:'', 
-            book_author:'',
-            year:0,
-            publisher:'',
-            ISBN: ''    
+        this.state = {
+            book_title: '',
+            book_author: '',
+            year: 0,
+            publisher: '',
+            ISBN: ''
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -39,17 +42,19 @@ class BookForm extends Component<MyProps, MyState>{
       }
       */
 
-     handleChange = (field: string) => (event:any) => {
+    handleChange = (field: string) => (event: any) => {
         this.setState({ [field]: event.target.value } as Pick<MyState, any>);
     };
-    
-/*
-    handleChange(event: any) {
-        this.setState({ book_title: event.target.value });
-    }
-    */
+
+    /*
+        handleChange(event: any) {
+            this.setState({ book_title: event.target.value });
+        }
+        */
 
     handleSubmit(event: any) {
+        let id:string = ""
+        /*
         fetch('/api/books/create', {
             method: 'POST',
             headers: {
@@ -61,22 +66,35 @@ class BookForm extends Component<MyProps, MyState>{
                 book_author: this.state.book_author
                  
             })
-        }).then(response => alert(JSON.stringify(response)));
+        }).then(response => {return response.json}).then(json => console.log(json));
         event.preventDefault();
+*/
+        axios.post('/api/books/create', {
+            book_title: this.state.book_title,
+            book_author: this.state.book_author
+        })
+            .then(response => {
+               id =  response.data.book_id
+               this.props.history.push(`/books/${id}`);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+            event.preventDefault();
+            
     }
-
     render() {
         return (
             <Container>
                 <Form onSubmit={this.handleSubmit}>
                     <Form.Group controlId="formTitle">
                         <Form.Label>Title</Form.Label>
-                        <Form.Control 
-                            type="text" 
-                            placeholder="Enter Title" 
-                            name="book_title" 
-                            onChange={this.handleChange("book_title")} 
-                            autoFocus/>
+                        <Form.Control
+                            type="text"
+                            placeholder="Enter Title"
+                            name="book_title"
+                            onChange={this.handleChange("book_title")}
+                            autoFocus />
                     </Form.Group>
                     <Form.Group controlId="formAuthor">
                         <Form.Label>Author</Form.Label>
@@ -95,7 +113,7 @@ class BookForm extends Component<MyProps, MyState>{
                         <Form.Control type="number" placeholder="Enter ISBN" />
                     </Form.Group>
                     <Button variant="primary" type="submit">
-                        Submit
+                       Create Book
                     </Button>
                 </Form>
             </Container>
