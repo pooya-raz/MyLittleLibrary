@@ -4,7 +4,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const cookieParser = require("cookie-parser");
 const express = require("express");
 const path = require("path");
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3000;
 // Create a new express application instance
 const app = express();
 //Setup
