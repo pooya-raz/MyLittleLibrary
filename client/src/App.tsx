@@ -6,7 +6,7 @@ import Nav from 'react-bootstrap/Nav';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import BookForm from "./BookForm"
 import Libraries from "./Libraries"
-
+import BookShow from "./BookShow"
 class App extends Component {
   render() {
     return (
@@ -24,6 +24,7 @@ class App extends Component {
           </Navbar>
           <Route path="/books/create" component={BookForm} />
           <Route path="/libraries/" component={Libraries} />
+          <Route path="/books/:id" component={BookShow} />
         </div>
       </Router>
       </div>
