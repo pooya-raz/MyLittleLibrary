@@ -27,18 +27,21 @@ type Book = {
 
 class BookShow extends Component<MyProps, MyState>{
         state = {book: {
-            book_title: "hi",
+            book_title: "",
             book_image: "",
             book_id: "",
             location_id: ""
-        }
+        },
+        isLoading: false 
     }
     
     componentDidMount() {
-        axios.get('/api/books/1')
+        this.setState({ isLoading: true });
+        let id = this.props.match.params.id.toString();
+        axios.get('/api/books/' + id)
         .then(response => {
-            const book:Book = response.data
-            this.setState({book});
+            const res_book:Book = response.data
+            this.setState({book: res_book, isLoading: false});
         })
         /*
             this.setState({book: {
@@ -60,10 +63,16 @@ class BookShow extends Component<MyProps, MyState>{
     render(
 
     ) {
+        const { book, isLoading } = this.state;
+
+    if (isLoading) {
+      return <p>Loading ...</p>;
+    }
+
         return (
             <div>
-            <h1>{this.props.match.params.id}</h1>
-            <h2 className="book_title">{this.state.book.book_title} </h2>
+            <h1>{book.book_id}</h1>
+            <h2 className="book_title">{book.book_title} </h2>
             </div>
         )}
 }

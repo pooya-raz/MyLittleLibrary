@@ -6,41 +6,24 @@ var response_book = {
     book_title: ""
 };
 
-describe('User wants to create a new book', () => {
-    it('Begins at the homepage', () => {
-        cy.visit(url);
-    });
-    it("Clicks on the 'add book' button", () => {
-        cy.contains('Add Book').click();
-        cy.url().should('include', '/books/create');
-    });
-    it('should autofocus on the formTitle', () => {
-        cy
-            .focused()
-            .should('have.id', 'formTitle');
-    });
-
-
-});
-it('then redirect to the book page', () => {
-    cy.location('pathname').should('eq', `/books/${response_book.book_id}`);
-});
-it('should have the new data entered', () => {
-    cy.get('#bookTitle');
-});
-
 describe('User creates a new book from form', () => {
-    it('submit a form', () => {
-        const book_title = 'Cypress is Awesome!';
+    const book_title = 'Cypress is Awesome!';
+
+    it('should see form on add_book page', ()=>{
         cy.visit(url + '/books/create');
+        cy.get('#formTitle');
+   });
+   it('should be able to type in text', ()=>{
+        cy.get('#formTitle').as('formSubmit')
+            .type(book_title);
+   })
+   it('should click the submit button and submit', () => {
         cy.server();
         cy.route('POST', '/api/books/create', {
             book_id: 1,
             book_title: book_title
         }).as('create');
-        cy.get('#formTitle').as('formSubmit')
-            .type(book_title)
-            .type('{enter}');
+        cy.get('button').click();
 
         cy.wait('@create').then(response => {
             response_book.book_id = response.response.body.book_id;
@@ -52,11 +35,11 @@ describe('User creates a new book from form', () => {
         cy.url().should('eq', `http://${url}/books/${response_book.book_id}`);
     });
     it('Should have the id of the new book', () => {
-        cy.get('#book_title');
+        cy.get('.book_title');
     });
 });
 
-describe.only("User vists the page of a book",() => {
+describe("User vists the page of a book",() => {
     it('Should have book details', () => {
 ;
     cy.server();

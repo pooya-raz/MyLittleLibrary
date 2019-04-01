@@ -32,10 +32,9 @@ export const book_list = function(req: Request, res: Response) {
         }
     });
 };
-
 // Display detail page for a specific book.
 export const book_detail = function(req: Request, res: Response) {
-    db.get(`SELECT book_id, book_title, location_name FROM books JOIN locations USING (location_id) WHERE book_id = ?;`, [req.params.id], (err: Error,row: Book) => {
+    db.get(`SELECT book_id, book_title, location_id, book_image FROM books WHERE book_id = ?`, [req.params.id], (err: Error,row: Book) => {
         return row
             ? res.send(row)
             : res.send(`No book found with the id ${req.params.id}`)
