@@ -53,3 +53,18 @@ describe("User vists the page of a book",() => {
     cy.get('.book_title').contains('Cypress is Awesome!' );
     });
 });
+
+describe("User vists the page of a book but api is down",() => {
+    it.only('Should respond with an error message', () => {
+;
+    cy.server();
+    cy.route({
+        method:'GET', 
+        url: '/api/books/1', 
+        status: 500,
+        response: {}
+    }).as('create');
+    cy.visit(`${url}/books/1`)
+    cy.get('.error').should('be.visible' );
+    });
+});
