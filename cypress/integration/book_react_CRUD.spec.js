@@ -58,7 +58,7 @@ describe('User creates a new book from form', () => {
 
 describe.only("User vists the page of a book",() => {
     it('Should have book details', () => {
-    cy.visit(`${url}/books/1`);
+;
     cy.server();
     cy.route('GET', '/api/books/1', {
         book_id: "1",
@@ -66,6 +66,7 @@ describe.only("User vists the page of a book",() => {
         location_id: "1",
         book_image: "http://facebook.com"
     }).as('create');
-    cy.get('.book_title').contains('Cypress is Awesome' );
+    cy.visit(`${url}/books/1`)
+    cy.get('.book_title').contains('Cypress is Awesome!' );
     });
 });
