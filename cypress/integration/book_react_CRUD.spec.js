@@ -29,10 +29,7 @@ it('should have the new data entered', () => {
     cy.get('#bookTitle');
 });
 
-
-
-
-describe.only('User creates a new book from form', () => {
+describe('User creates a new book from form', () => {
     it('submit a form', () => {
         const book_title = 'Cypress is Awesome!';
         cy.visit(url + '/books/create');
@@ -55,6 +52,20 @@ describe.only('User creates a new book from form', () => {
         cy.url().should('eq', `http://${url}/books/${response_book.book_id}`);
     });
     it('Should have the id of the new book', () => {
-        cy.get('#book_title')
-    })
+        cy.get('#book_title');
+    });
+});
+
+describe.only("User vists the page of a book",() => {
+    it('Should have book details', () => {
+    cy.visit(`${url}/books/1`);
+    cy.server();
+    cy.route('GET', '/api/books/1', {
+        book_id: "1",
+        book_title: "Cypress is Awesome!",
+        location_id: "1",
+        book_image: "http://facebook.com"
+    }).as('create');
+    cy.get('.book_title').contains('Cypress is Awesome' );
+    });
 });
