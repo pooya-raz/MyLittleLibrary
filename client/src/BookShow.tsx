@@ -34,7 +34,7 @@ class BookShow extends Component<MyProps, MyState>{
             location_id: ""
         },
         isLoading: false,
-        hasError: false
+        hasError: {response: {status: ""}}
     }
 
     componentDidMount() {
@@ -47,7 +47,7 @@ class BookShow extends Component<MyProps, MyState>{
             })
             .catch(error => {
                 // handle error
-                this.setState({ hasError: true });
+                this.setState({ hasError: error});
             })
             .then(function () {
                 // always executed
@@ -57,11 +57,12 @@ class BookShow extends Component<MyProps, MyState>{
 
     ) {
         const { book, isLoading, hasError } = this.state;
-
+        let errorM = `Error Status: ${hasError.response.status}`;
         if (hasError) {
             return (
             <div className="error alert alert-danger" role="alert">
-                Oops... something has gone wrong!
+                <p>Oops... something has gone wrong!</p>
+                <p>{errorM}</p>
             </div>)
         } else if (isLoading) {
             return <p>Loading ...</p>;
