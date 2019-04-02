@@ -66,7 +66,6 @@ class BookShow extends Component<MyProps, MyState>{
         } else if (isLoading) {
             return <p>Loading ...</p>;
         }
-
         return (
             <div>
                 <h1>{book.book_id}</h1>

@@ -6,7 +6,7 @@ var response_book = {
     book_title: ""
 };
 
-describe('User creates a new book from form', () => {
+describe.only('User creates a new book from the form', () => {
     const book_title = 'Cypress is Awesome!';
 
     it('should see form on add_book page', ()=>{

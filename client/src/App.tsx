@@ -3,7 +3,7 @@ import LogoBar from './LogoBar'
 import './App.css';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 import BookForm from "./BookForm"
 import Libraries from "./Libraries"
 import BookShow from "./BookShow"
@@ -22,9 +22,11 @@ class App extends Component {
               <Nav.Link href="/account/">Account</Nav.Link>
             </Nav>
           </Navbar>
+          <Switch>
           <Route path="/books/add-book" component={BookForm} />
           <Route path="/libraries/" component={Libraries} />
           <Route path="/books/:id" component={BookShow} />
+          </Switch>
         </div>
       </Router>
       </div>
