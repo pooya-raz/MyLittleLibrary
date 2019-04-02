@@ -6,7 +6,7 @@ var response_book = {
     book_title: ""
 };
 
-describe('User creates a new book from form', () => {
+describe.only('User creates a new book from form', () => {
     const book_title = 'Cypress is Awesome!';
 
     it('should see form on add_book page', ()=>{
@@ -35,7 +35,7 @@ describe('User creates a new book from form', () => {
         cy.url().should('eq', `http://${url}/books/${response_book.book_id}`);
     });
     it('Should have the id of the new book', () => {
-        cy.get('.book_title');
+        cy.get('.book-details_title');
     });
 });
 
@@ -50,10 +50,40 @@ describe("User vists the page of a book",() => {
         book_image: "http://facebook.com"
     }).as('create');
     cy.visit(`${url}/books/1`)
-    cy.get('.book_title').contains('Cypress is Awesome!' );
+    cy.get('.book-details_title').contains('Cypress is Awesome!' );
     });
 
-    context.only("but the api is down",() => {
+    context("but the api is down",() => {
+        it('Should respond with an error message', () => {
+    ;
+        cy.server();
+        cy.route({
+            method:'GET', 
+            url: '/api/books/1', 
+            status: 500,
+            response: {}
+        }).as('create');
+        cy.visit(`${url}/books/1`)
+        cy.get('.error').should('be.visible' );
+        });
+    });
+});
+
+describe("User visits book page and wants to delete a book",() => {
+    it('It should have a delete button', () => {
+    cy.server();
+    cy.route('GET', '/api/books/1', {
+        book_id: "1",
+        book_title: "Cypress is Awesome!",
+        location_id: "1",
+        book_image: "http://facebook.com"
+    }).as('getBook');
+    cy.visit(`${url}/books/1`);
+    cy.wait('@getBook')
+    cy.get('.book-details_delete_button').contains('Delete');
+    });
+
+    context("but the api is down",() => {
         it('Should respond with an error message', () => {
     ;
         cy.server();

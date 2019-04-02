@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { RouteComponentProps } from 'react-router';
+import Button from "react-bootstrap/Button";
 import axios from 'axios';
 
 interface MatchParams {
@@ -34,7 +35,7 @@ class BookShow extends Component<MyProps, MyState>{
             location_id: ""
         },
         isLoading: false,
-        hasError: {response: {status: ""}}
+        hasError: false 
     }
 
     componentDidMount() {
@@ -57,12 +58,10 @@ class BookShow extends Component<MyProps, MyState>{
 
     ) {
         const { book, isLoading, hasError } = this.state;
-        let errorM = `Error Status: ${hasError.response.status}`;
         if (hasError) {
             return (
             <div className="error alert alert-danger" role="alert">
                 <p>Oops... something has gone wrong!</p>
-                <p>{errorM}</p>
             </div>)
         } else if (isLoading) {
             return <p>Loading ...</p>;
@@ -71,7 +70,8 @@ class BookShow extends Component<MyProps, MyState>{
         return (
             <div>
                 <h1>{book.book_id}</h1>
-                <h2 className="book_title">{book.book_title} </h2>
+                <h2 className="book-details_title">{book.book_title} </h2>
+                <Button type="button" className="book-details_delete_button js-book-details_delete_button" variant="danger" >Delete Book</Button>
             </div>
         )
     }

@@ -37,7 +37,7 @@ describe('User wants to create a new book', () => {
         cy.location('pathname').should('eq', `/books/${response_book.book_id}`);
     });
     it('should have the new data entered', () => {
-        cy.get('.book_title');
+        cy.get('.book-details_title');
     });
 
 
@@ -48,7 +48,7 @@ describe('User wants to see details of a book', () => {
         cy.visit(url + `/books/${response_book.book_id}`);
     });
     it('has the detail of the book', () => {
-        cy.get('.book_title')
+        cy.get('.book-details.title')
         .contains(response_book.book_title);
     });
 });
