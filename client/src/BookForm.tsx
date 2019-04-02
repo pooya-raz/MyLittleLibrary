@@ -113,7 +113,7 @@ class BookForm extends Component<MyProps, MyState>{
                         <Form.Control type="number" placeholder="Enter ISBN" />
                     </Form.Group>
                     <Button variant="primary" type="submit">
-                       Create Book
+                       Add Book
                     </Button>
                 </Form>
             </Container>

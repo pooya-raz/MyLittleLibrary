@@ -23,7 +23,7 @@ describe.only('User creates a new book from the form', () => {
             book_id: 1,
             book_title: book_title
         }).as('create');
-        cy.get('button').click();
+        cy.get('button').contains('Add Book').click();
 
         cy.wait('@create').then(response => {
             response_book.book_id = response.response.body.book_id;
@@ -49,7 +49,7 @@ describe("User vists the page of a book",() => {
         location_id: "1",
         book_image: "http://facebook.com"
     }).as('create');
-    cy.visit(`${url}/books/1`)
+    cy.visit(`${url}/books/1`);
     cy.get('.book-details_title').contains('Cypress is Awesome!' );
     });
 
@@ -80,7 +80,8 @@ describe("User visits book page and wants to delete a book",() => {
     }).as('getBook');
     cy.visit(`${url}/books/1`);
     cy.wait('@getBook')
-    cy.get('.book-details_delete_button').contains('Delete');
+    cy.get('.book-details_delete-button')
+      .contains('Delete');
     });
 
     context("but the api is down",() => {

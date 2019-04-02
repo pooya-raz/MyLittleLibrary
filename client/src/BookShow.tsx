@@ -70,7 +70,7 @@ class BookShow extends Component<MyProps, MyState>{
             <div>
                 <h1>{book.book_id}</h1>
                 <h2 className="book-details_title">{book.book_title} </h2>
-                <Button type="button" className="book-details_delete_button js-book-details_delete_button" variant="danger" >Delete Book</Button>
+                <Button type="button" className="book-details_delete-button js-book-details_delete-button" variant="danger" >Delete Book</Button>
             </div>
         )
     }
