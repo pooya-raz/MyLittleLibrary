@@ -3,10 +3,10 @@ import booksController = require("./booksController");
 
 const router = express.Router();
 // GET request for creating a Book. NOTE This must come before routes that display Book (uses id).
-router.get("/create", booksController.book_create_get);
+router.get("/add-book", booksController.book_create_get);
 
 // POST request for creating Book.
-router.post("/create", booksController.book_create_post);
+router.post("/add-book", booksController.book_create_post);
 
 // GET request to delete Book.
 router.get("/:id/delete", booksController.book_delete_get);

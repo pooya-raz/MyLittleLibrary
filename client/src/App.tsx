@@ -16,13 +16,13 @@ class App extends Component {
         <div>
           <Navbar bg="light" fixed="bottom">
             <Nav className="mr-auto">
-              <Nav.Link href="/books/create">Add Book</Nav.Link>
+              <Nav.Link href="/books/add-book">Add Book</Nav.Link>
               <Nav.Link href="/libraries">Libraries</Nav.Link>
               <Nav.Link href="/search">Search</Nav.Link>
               <Nav.Link href="/account/">Account</Nav.Link>
             </Nav>
           </Navbar>
-          <Route path="/books/create" component={BookForm} />
+          <Route path="/books/add-book" component={BookForm} />
           <Route path="/libraries/" component={Libraries} />
           <Route path="/books/:id" component={BookShow} />
         </div>

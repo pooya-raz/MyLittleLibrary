@@ -7,7 +7,7 @@ const book3 = {book_title: "Cypress Book2", author:"Batman"};
 describe('create a new book', () => {
     it('Sends a JSON and returns a JSON', () => {
         cy
-            .request('POST', url + '/books/create', book1)
+            .request('POST', url + '/books/add-book', book1)
             .then((response) => {
             // response.body is automatically serialized into JSON
             expect(response.body).to.have.property('book_title', book1.book_title);

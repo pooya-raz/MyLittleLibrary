@@ -13,7 +13,7 @@ describe('User wants to create a new book', () => {
     });
     it("Clicks on the 'add book' button", () => {
         cy.contains('Add Book').click();
-        cy.url().should('include', '/books/create');
+        cy.url().should('include', '/books/add-book');
     });
     it('should autofocus on the formTitle', () => {
         cy
@@ -23,7 +23,7 @@ describe('User wants to create a new book', () => {
     it('submit a form', () => {
         const book_title = 'Cypress is Awesome!';
         cy.server();
-        cy.route('POST', '/api/books/create').as('create');
+        cy.route('POST', '/api/books/add-book').as('create');
         cy.get('#formTitle').as('formSubmit')
             .type(book_title)
             .type('{enter}');
@@ -48,7 +48,7 @@ describe('User wants to see details of a book', () => {
         cy.visit(url + `/books/${response_book.book_id}`);
     });
     it('has the detail of the book', () => {
-        cy.get('.book-details.title')
+        cy.get('.book-details_title')
         .contains(response_book.book_title);
     });
 });

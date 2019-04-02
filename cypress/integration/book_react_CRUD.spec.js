@@ -6,11 +6,11 @@ var response_book = {
     book_title: ""
 };
 
-describe.only('User creates a new book from form', () => {
+describe('User creates a new book from form', () => {
     const book_title = 'Cypress is Awesome!';
 
     it('should see form on add_book page', ()=>{
-        cy.visit(url + '/books/create');
+        cy.visit(url + '/books/add-book');
         cy.get('#formTitle');
    });
    it('should be able to type in text', ()=>{
@@ -19,7 +19,7 @@ describe.only('User creates a new book from form', () => {
    })
    it('should click the submit button and submit', () => {
         cy.server();
-        cy.route('POST', '/api/books/create', {
+        cy.route('POST', '/api/books/add-book', {
             book_id: 1,
             book_title: book_title
         }).as('create');

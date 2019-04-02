@@ -55,7 +55,7 @@ class BookForm extends Component<MyProps, MyState>{
     handleSubmit(event: any) {
         let id:string = ""
         /*
-        fetch('/api/books/create', {
+        fetch('/api/books/add-book', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -69,7 +69,7 @@ class BookForm extends Component<MyProps, MyState>{
         }).then(response => {return response.json}).then(json => console.log(json));
         event.preventDefault();
 */
-        axios.post('/api/books/create', {
+        axios.post('/api/books/add-book', {
             book_title: this.state.book_title,
             book_author: this.state.book_author
         })
