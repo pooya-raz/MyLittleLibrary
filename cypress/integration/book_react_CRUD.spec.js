@@ -53,6 +53,12 @@ describe("User vists the page of a book",() => {
     cy.get('.book-details_title').contains('Cypress is Awesome!' );
     });
 
+    it('Should have a delete button', () => {
+
+        cy.get('.book-details_delete-button')
+          .contains('Delete');
+        });
+
     context("but the api is down",() => {
         it('Should respond with an error message', () => {
     ;
@@ -69,20 +75,36 @@ describe("User vists the page of a book",() => {
     });
 });
 
-describe("User visits book page and wants to delete a book",() => {
-    it('It should have a delete button', () => {
-    cy.server();
-    cy.route('GET', '/api/books/1', {
-        book_id: "1",
-        book_title: "Cypress is Awesome!",
-        location_id: "1",
-        book_image: "http://facebook.com"
-    }).as('getBook');
-    cy.visit(`${url}/books/1`);
-    cy.wait('@getBook')
-    cy.get('.book-details_delete-button')
-      .contains('Delete');
+describe.only("User wants to delete a book",() => {
+    it('Should load books details page', () => {
+        cy.server();
+        cy.route('GET', '/api/books/1', {
+            book_id: "1",
+            book_title: "Cypress is Awesome!",
+            location_id: "1",
+            book_image: "http://facebook.com"
+        }).as('getBook');
+        cy.visit(`${url}/books/1`);
+        cy.wait('@getBook') 
     });
+
+    it('Clicking delete should reveal modal', () => {
+
+        cy.get('.book-details_delete-button').click();
+        cy.get('.modal-title')
+        .should('be.visible')
+        .contains('Delete Confirmation');
+    });
+    it('When delete button is clicked, it should delete book', () => {
+        cy.server();
+        cy.route({
+            method:'POST', 
+            url: '/api/books/1/delete', 
+            status: 200,
+            response: {}
+        }).as('delete');
+        cy.get('.js-delete-book').click();
+    })
 
     context("but the api is down",() => {
         it('Should respond with an error message', () => {
