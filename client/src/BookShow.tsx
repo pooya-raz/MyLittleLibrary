@@ -26,18 +26,18 @@ type Book = {
     book_id: string
 }
 
-const deleteBook = (id:string) => {
- 
+const deleteBook = (id: string) => {
+
 };
 
 class BookShow extends Component<MyProps, MyState>{
-    constructor(props:MyProps) {
+    constructor(props: MyProps) {
         super(props);
-    
+
         this.handleShow = this.handleShow.bind(this);
         this.handleClose = this.handleClose.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
-    
+
         this.state = {
             book: {
                 book_title: "",
@@ -50,8 +50,8 @@ class BookShow extends Component<MyProps, MyState>{
             show: false,
             toLibraries: false,
         }
-      }
- 
+    }
+
 
     handleClose() {
         this.setState({ show: false });
@@ -61,17 +61,17 @@ class BookShow extends Component<MyProps, MyState>{
         this.setState({ show: true });
     }
 
-    handleDelete(){
+    handleDelete() {
         axios.post(`/api/books/${this.state.book.book_id}/delete`)
-        .then(response => {
-            this.handleClose
-            this.setState(() => ({
-                toLibraries: true
-              }));
-        })
-        .catch(err => {
-          alert(err);
-        });
+            .then(response => {
+                this.handleClose
+                this.setState(() => ({
+                    toLibraries: true
+                }));
+            })
+            .catch(err => {
+                alert(err);
+            });
     }
 
 
@@ -97,8 +97,12 @@ class BookShow extends Component<MyProps, MyState>{
     ) {
         const { book, isLoading, hasError } = this.state;
         if (this.state.toLibraries === true) {
-            return <Redirect to='/libraries' />
-          } else if (hasError) {
+            return <Redirect
+                to={{
+                    pathname: '/libraries',
+                    state: { showDeleteConfirmation: true }
+                }} />
+        } else if (hasError) {
             return (
                 <div className="error alert alert-danger" role="alert">
                     <p>Oops... something has gone wrong!</p>
@@ -115,7 +119,7 @@ class BookShow extends Component<MyProps, MyState>{
                     data-toggle="modal"
                     data-target="#exampleModal"
                     onClick={this.handleShow} >
-                         Delete Book
+                    Delete Book
                 </Button>
 
                 <div>

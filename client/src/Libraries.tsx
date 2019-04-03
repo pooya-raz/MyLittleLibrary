@@ -6,19 +6,27 @@ import StatusDropdown from './StatusDropdown';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Alert from 'react-bootstrap/Alert'
 
 class Libraries extends Component {
-    render() {
-      return (
-          <div>
+  render() {
+    return (
+      <div>
+        <div>
+          <Alert variant={"success"}>
+            Book was successfully deleted
+          </Alert>
+        </div>
         <SearchBar />
         <Container>
           <Row>
             <Col><LibraryDropdown /></Col>
-            <Col><StatusDropdown/></Col>
+            <Col><StatusDropdown /></Col>
           </Row>
         </Container>
         <LibraryList />
-        </div>
-      )}}
+      </div>
+    )
+  }
+}
 export default Libraries
