@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { RouteComponentProps, Redirect } from 'react-router';
 import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal"
+import Modal from "react-bootstrap/Modal";
+import Alert from "react-bootstrap/Alert";
 import axios from 'axios';
 
 interface MatchParams {
@@ -49,6 +50,7 @@ class BookShow extends Component<MyProps, MyState>{
             hasError: false,
             show: false,
             toLibraries: false,
+            showAddConfirmation: false 
         }
     }
 
@@ -78,6 +80,17 @@ class BookShow extends Component<MyProps, MyState>{
 
     componentDidMount() {
         this.setState({ isLoading: true });
+
+        //if book was added show confirmation
+        if (this.props.location.state !== undefined && this.props.location.state.showAddConfirmation === true){
+            this.setState({ showAddConfirmation: true })
+            let timer = () => {
+              this.setState({ showAddConfirmation: false})
+            }
+            setTimeout(timer, 4000);
+          }
+
+        //Get book details from API
         let id = this.props.match.params.id.toString();
         axios.get('/api/books/' + id)
             .then(response => {
@@ -111,7 +124,13 @@ class BookShow extends Component<MyProps, MyState>{
             return <p>Loading ...</p>;
         }
         return (
+            
             <div>
+                        <div>
+          <Alert variant={"success"} show={this.state.showAddConfirmation}>
+            Book was successfully added
+          </Alert>
+        </div>
                 <h2 className="book-details_title">{book.book_title} </h2>
                 <Button type="button"
                     className="book-details_delete-button js-book-details_delete-button"

@@ -34,6 +34,15 @@ describe('User creates a new book from the form', () => {
     it('Should redirect to the new page', () => {
         cy.url().should('eq', `http://${url}/books/${response_book.book_id}`);
     });
+    it('Show a confirmation', () => {
+        cy.get('.alert-success').should('be.visible');
+        
+    });
+    it('Confirmation should diappear after 4 seconds', () => {
+        cy.wait(4000);
+        cy.get('.alert-success').should('not.be.visible');
+        
+    });
     it('Should have the id of the new book', () => {
         cy.get('.book-details_title');
     });

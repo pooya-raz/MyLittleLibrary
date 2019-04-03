@@ -92,7 +92,10 @@ class BookForm extends Component<MyProps, MyState>{
     }
     render() {
         if (this.state.toBookDetails === true) {
-            return <Redirect to={{ pathname: `/books/${this.state.book_id}`}} />
+            return <Redirect to={{ 
+                pathname: `/books/${this.state.book_id}`,
+                state: { showAddConfirmation: true }
+            }} />
           }
         return (
             <Container>
