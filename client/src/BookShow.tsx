@@ -4,6 +4,13 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Alert from "react-bootstrap/Alert";
 import axios from 'axios';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Dropdown from 'react-bootstrap/Dropdown';
+import DropdownButton from 'react-bootstrap/DropdownButton';
+import InputGroup from 'react-bootstrap/InputGroup';
+import FormControl from 'react-bootstrap/FormControl';
 
 interface MatchParams {
     id: string;
@@ -50,7 +57,7 @@ class BookShow extends Component<MyProps, MyState>{
             hasError: false,
             show: false,
             toLibraries: false,
-            showAddConfirmation: false 
+            showAddConfirmation: false
         }
     }
 
@@ -82,13 +89,13 @@ class BookShow extends Component<MyProps, MyState>{
         this.setState({ isLoading: true });
 
         //if book was added show confirmation
-        if (this.props.location.state !== undefined && this.props.location.state.showAddConfirmation === true){
+        if (this.props.location.state !== undefined && this.props.location.state.showAddConfirmation === true) {
             this.setState({ showAddConfirmation: true })
             let timer = () => {
-              this.setState({ showAddConfirmation: false})
+                this.setState({ showAddConfirmation: false })
             }
             setTimeout(timer, 4000);
-          }
+        }
 
         //Get book details from API
         let id = this.props.match.params.id.toString();
@@ -124,42 +131,108 @@ class BookShow extends Component<MyProps, MyState>{
             return <p>Loading ...</p>;
         }
         return (
-            
+
             <div>
-                        <div>
-          <Alert variant={"success"} show={this.state.showAddConfirmation}>
-            Book was successfully added
+                <div>
+                    <Alert variant={"success"} show={this.state.showAddConfirmation}>
+                        Book was successfully added
           </Alert>
-        </div>
-                <h2 className="book-details_title">{book.book_title} </h2>
-                <Button type="button"
-                    className="book-details_delete-button js-book-details_delete-button"
-                    variant="danger"
-                    data-toggle="modal"
-                    data-target="#exampleModal"
-                    onClick={this.handleShow} >
-                    Delete Book
+                </div>
+                <Container >
+                    <div className="text-center" style={{paddingBottom: "60px"}}>
+                    <img  src="http://books.google.com/books/content?id=ScG5YqYcsEcC&printsec=frontcover&img=1&zoom=1&source=gbs_api" />
+                        <h3 className="book-details_title ">{book.book_title} </h3>
+                        <h4 className="book-details_authors">An Author</h4>
+                        <Row>
+                            <Col></Col>
+                            <Col>
+                                <p>2004</p>
+                            </Col>
+                            <Col>
+                                <p>Publisher</p>
+                            </Col>
+                            <Col></Col>
+                        </Row>
+                        <p>ISBN-13: 978-0826476975</p>
+                        <Button type="button"> Edit Book </Button>
+                        <hr></hr>
+                        <h3>Location Details</h3>
+                        <Row>
+                            <Col>Location:</Col>
+                            <Col>
+                                <DropdownButton id="dropdown-basic-button" variant="info" title="Dropdown button">
+                                    <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
+                                    <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
+                                    <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+                                </DropdownButton>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col></Col>
+                            <Col>
+                                <p>manage locations</p>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col>
+                                <p>Status:</p>
+                            </Col>
+                            <Col>
+                                <DropdownButton id="Status" variant="info" title="Dropdown button">
+                                    <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
+                                    <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
+                                    <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+                                </DropdownButton>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col></Col>
+                            <Col>
+                                <p>manage statuses</p>
+                            </Col>
+                        </Row>
+                        <InputGroup className="mb-3">
+                            <InputGroup.Prepend>
+                                <InputGroup.Text id="inputGroup-sizing-default">Location Notes</InputGroup.Text>
+                            </InputGroup.Prepend>
+                            <FormControl
+                                aria-label="Location Notes"
+                                aria-describedby="inputGroup-sizing-default"
+                            />
+                            </InputGroup>
+                            <hr></hr>
+                            <Button type="button"
+                                className="book-details_delete-button js-book-details_delete-button"
+                                variant="danger"
+                                data-toggle="modal"
+                                data-target="#exampleModal"
+                                onClick={this.handleShow} >
+                                Delete Book
                 </Button>
 
-                <div>
 
-                    <Modal show={this.state.show} onHide={this.handleClose}>
-                        <Modal.Header closeButton>
-                            <Modal.Title>Delete Confirmation</Modal.Title>
-                        </Modal.Header>
-                        <Modal.Body>Are your sure that you want to delete this book?</Modal.Body>
-                        <Modal.Footer>
-                            <Button variant="secondary" onClick={this.handleClose}>
-                                Cancel
+                    </div>
+
+                        <div>
+
+                            <Modal show={this.state.show} onHide={this.handleClose}>
+                                <Modal.Header closeButton>
+                                    <Modal.Title>Delete Confirmation</Modal.Title>
+                                </Modal.Header>
+                                <Modal.Body>Are your sure that you want to delete this book?</Modal.Body>
+                                <Modal.Footer>
+                                    <Button variant="secondary" onClick={this.handleClose}>
+                                        Cancel
                             </Button>
-                            <Button variant="danger" className="js-delete-book" onClick={this.handleDelete}>
-                                Delete Book
+                                    <Button variant="danger" className="js-delete-book" onClick={this.handleDelete}>
+                                        Delete Book
                             </Button>
-                        </Modal.Footer>
-                    </Modal>
-                </div>
+                                </Modal.Footer>
+                            </Modal>
+                        </div>
+                </Container>
             </div>
-        )
-    }
-}
-export default BookShow;
+                )
+            }
+        }
+        export default BookShow;
