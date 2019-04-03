@@ -62,7 +62,10 @@ class BookShow extends Component<MyProps, MyState>{
 
     handleDelete(){
         axios.post(`/api/books/${this.state.book.book_id}/delete`)
-        .then(this.handleClose)
+        .then(response => {
+            this.handleClose
+            this.props.history.push('/libraries');
+        })
         .catch(err => {
           alert(err);
         });
