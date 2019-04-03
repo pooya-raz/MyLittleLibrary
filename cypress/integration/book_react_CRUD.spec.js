@@ -6,7 +6,7 @@ var response_book = {
     book_title: ""
 };
 
-describe.only('User creates a new book from the form', () => {
+describe('User creates a new book from the form', () => {
     const book_title = 'Cypress is Awesome!';
 
     it('should see form on add_book page', ()=>{
@@ -75,7 +75,7 @@ describe("User vists the page of a book",() => {
     });
 });
 
-describe.only("User wants to delete a book",() => {
+describe("User wants to delete a book",() => {
     it('Should load books details page', () => {
         cy.server();
         cy.route('GET', '/api/books/1', {

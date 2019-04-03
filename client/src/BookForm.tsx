@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router';
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
@@ -28,7 +29,9 @@ class BookForm extends Component<MyProps, MyState>{
             book_author: '',
             year: 0,
             publisher: '',
-            ISBN: ''
+            ISBN: '',
+            book_id: 0,
+            toBookDetails: false
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -74,8 +77,12 @@ class BookForm extends Component<MyProps, MyState>{
             book_author: this.state.book_author
         })
             .then(response => {
-               id =  response.data.book_id
-               this.props.history.push(`/books/${id}`);
+               //id =  response.data.book_id
+               //this.props.history.push(`/books/${id}`);
+               this.setState(() => ({
+                toBookDetails: true,
+                book_id: response.data.book_id 
+              }))
             })
             .catch(function (error) {
                 console.log(error);
@@ -84,6 +91,9 @@ class BookForm extends Component<MyProps, MyState>{
             
     }
     render() {
+        if (this.state.toBookDetails === true) {
+            return <Redirect to={{ pathname: `/books/${this.state.book_id}`}} />
+          }
         return (
             <Container>
                 <Form onSubmit={this.handleSubmit}>
