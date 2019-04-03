@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { RouteComponentProps } from 'react-router';
+import { RouteComponentProps, Redirect } from 'react-router';
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal"
 import axios from 'axios';
@@ -47,7 +47,8 @@ class BookShow extends Component<MyProps, MyState>{
             },
             isLoading: false,
             hasError: false,
-            show: false
+            show: false,
+            toLibraries: false,
         }
       }
  
@@ -64,7 +65,9 @@ class BookShow extends Component<MyProps, MyState>{
         axios.post(`/api/books/${this.state.book.book_id}/delete`)
         .then(response => {
             this.handleClose
-            this.props.history.push('/libraries');
+            this.setState(() => ({
+                toLibraries: true
+              }));
         })
         .catch(err => {
           alert(err);
@@ -93,7 +96,9 @@ class BookShow extends Component<MyProps, MyState>{
 
     ) {
         const { book, isLoading, hasError } = this.state;
-        if (hasError) {
+        if (this.state.toLibraries === true) {
+            return <Redirect to='/libraries' />
+          } else if (hasError) {
             return (
                 <div className="error alert alert-danger" role="alert">
                     <p>Oops... something has gone wrong!</p>
