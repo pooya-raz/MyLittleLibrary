@@ -36,7 +36,7 @@ describe('User creates a new book from the form', () => {
         cy.get('.alert-success').should('be.visible');
 
     });
-    it('Confirmation should diappear after 4 seconds', () => {
+    it('Confirmation should disappear after 4 seconds', () => {
         cy.wait(4000);
         cy.get('.alert-success').should('not.be.visible');
 
@@ -46,7 +46,7 @@ describe('User creates a new book from the form', () => {
     });
 });
 
-describe("User vists the page of a book", () => {
+describe("User visits the page of a book", () => {
     it('Should have book details', () => {
         ;
         cy.server();
@@ -76,13 +76,13 @@ describe("User vists the page of a book", () => {
                 status: 500,
                 response: {}
             }).as('create');
-            cy.visit(`${url}/books/1`)
+            cy.visit(`${url}/books/1`);
             cy.get('.error').should('be.visible');
         });
     });
 });
 
-describe("User wants to delete a book", () => {
+describe.only("User wants to delete a book", () => {
     it('Should load books details page', () => {
         cy.server();
         cy.route('GET', '/api/books/1', {
@@ -112,14 +112,14 @@ describe("User wants to delete a book", () => {
         }).as('delete');
         cy.get('.js-delete-book').click();
     });
-    it('Should then redirect to the Libraries page', () => {
-        cy.url().should('eq', `http://${url}/libraries`)
+    it('Should then redirect to the Search page', () => {
+        cy.url().should('eq', `http://${url}/`);
     });
     it('Show a confirmation', () => {
         cy.get('.alert-success').should('be.visible');
 
     });
-    it('Confirmation should diappear after 4 seconds', () => {
+    it('Confirmation should disappear after 4 seconds', () => {
         cy.wait(4000);
         cy.get('.alert-success').should('not.be.visible');
 
