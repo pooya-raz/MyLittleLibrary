@@ -4,7 +4,7 @@ var response_book = {
     book_title: ""
 };
 
-describe('User creates a new book from the form', () => {
+describe.only('User creates a new book from the form', () => {
     const book_title = 'Cypress is Awesome!';
 
     it('should see form on add_book page', () => {
@@ -28,8 +28,20 @@ describe('User creates a new book from the form', () => {
             response_book.book_title = response.response.body.book_title;
         });
     });
-
+/*
     it('Should redirect to the new page', () => {
+        cy.server();
+        cy.route('GET', '/api/books/1', {
+            book_id: 1,
+            book_title: "Cypress is Awesome!",
+            0: {
+                key: "gflxir",
+                state:{
+                    showAddConfirmation: true
+                }
+            }
+        }).as('get-book');
+        cy.visit(`http://${url}/books/${response_book.book_id}`)
         cy.url().should('eq', `http://${url}/books/${response_book.book_id}`);
     });
     it('Show a confirmation', () => {
@@ -44,11 +56,12 @@ describe('User creates a new book from the form', () => {
     it('Should have the id of the new book', () => {
         cy.get('.book-details_title');
     });
+    
+ */
 });
 
 describe("User visits the page of a book", () => {
     it('Should have book details', () => {
-        ;
         cy.server();
         cy.route('GET', '/api/books/1', {
             book_id: "1",
@@ -68,7 +81,6 @@ describe("User visits the page of a book", () => {
 
     context("but the api is down", () => {
         it('Should respond with an error message', () => {
-            ;
             cy.server();
             cy.route({
                 method: 'GET',
@@ -140,7 +152,7 @@ describe("User wants to delete a book", () => {
 });
 
 
-describe.only("User wants details of a book that doesn't exist", () => {
+describe("User wants details of a book that doesn't exist", () => {
     it('Should give an error saying the book does not exist', () => {
             cy.request({url: `${url}/books/999999`, failOnStatusCode: false}).its('status').should('equal', 404);
     });
