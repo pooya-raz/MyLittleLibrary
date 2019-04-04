@@ -23,8 +23,16 @@ describe('see if new book is available', () => {
             .should('include', 'application/json');
     });
     it('should have the newly added book', () => {
-        cy.request(url + '/api/books')
+        cy.request(url + '/books')
           .its('body')
           .should('include',{book_title: "Cypress Book1", location_id: null});
       });
+});
+
+describe.only('Requesting a record that is not available', () => {
+    it('Should return a 404 status', () => {
+        cy.request({url: url+'/books/9999999', failOnStatusCode: false})
+            .its('status')
+            .should('equal', 404);
+    });
 });

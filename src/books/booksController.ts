@@ -37,7 +37,8 @@ export const book_detail = function(req: Request, res: Response) {
     db.get(`SELECT book_id, book_title, location_id, book_image FROM books WHERE book_id = ?`, [req.params.id], (err: Error,row: Book) => {
         return row
             ? res.send(row)
-            : res.send(`No book found with the id ${req.params.id}`)
+            : res.status(404)        // HTTP status 404: NotFound
+                .send('Not found');
     });
 };
 

@@ -150,7 +150,7 @@ it('Should give an error saying the book does not exist', () => {
 });
 });
 
-describe.only("Visiting a page that doesn't exist", () => {
+describe("Visiting a page that doesn't exist", () => {
     it('Should give an error saying the book does not exist', () => {
         cy.request({url: `${url}/books/999999`, failOnStatusCode: false}).its('status').should('equal', 404);
     });
