@@ -5,7 +5,7 @@ class LogoBar extends Component{
     render(){
         return(
           <Navbar bg="light">
-            <Navbar.Brand href="#home">My Little Library</Navbar.Brand>
+            <Navbar.Brand href="/">My Little Library</Navbar.Brand>
           </Navbar>
         )
     }

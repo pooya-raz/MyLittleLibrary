@@ -13,7 +13,7 @@ import Alert from 'react-bootstrap/Alert'
 interface MyProps extends RouteComponentProps {
 }
 
-class Libraries extends Component<MyProps> {
+class SearchPage extends Component<MyProps> {
   state={
     showDeleteConfirmation: false 
   }
@@ -46,4 +46,4 @@ class Libraries extends Component<MyProps> {
     )
   }
 }
-export default Libraries
+export default SearchPage

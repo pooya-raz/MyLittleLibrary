@@ -136,7 +136,7 @@ describe("User wants to delete a book", () => {
                 status: 500,
                 response: {}
             }).as('create');
-            cy.visit(`${url}/books/1`)
+            cy.visit(`${url}/books/1`);
             cy.get('.error').should('be.visible');
         });
     });

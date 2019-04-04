@@ -5,8 +5,9 @@ import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 import BookForm from "./BookForm"
-import Libraries from "./Libraries"
+import SearchPage from "./SearchPage"
 import BookShow from "./BookShow"
+import LibrariesPage from "./LibrariesPage";
 class App extends Component {
   render() {
     return (
@@ -18,13 +19,14 @@ class App extends Component {
             <Nav className="mr-auto">
               <Nav.Link href="/books/add-book">Add Book</Nav.Link>
               <Nav.Link href="/libraries">Libraries</Nav.Link>
-              <Nav.Link href="/search">Search</Nav.Link>
+              <Nav.Link href="/">Search</Nav.Link>
               <Nav.Link href="/account/">Account</Nav.Link>
             </Nav>
           </Navbar>
           <Switch>
+          <Route path="/" exact component={SearchPage} />
+            <Route pate="/libraries" component={LibrariesPage} />
           <Route path="/books/add-book" component={BookForm} />
-          <Route path="/libraries/" component={Libraries} />
           <Route path="/books/:id" component={BookShow} />
           </Switch>
         </div>
