@@ -126,7 +126,6 @@ describe("User wants to delete a book", () => {
     });
     context("but the api is down", () => {
         it('Should respond with an error message', () => {
-            ;
             cy.server();
             cy.route({
                 method: 'GET',
@@ -143,8 +142,19 @@ describe("User wants to delete a book", () => {
 
 describe("User wants details of a book that doesn't exist", () => {
     it('Should give an error saying the book does not exist', () => {
-
-            cy.visit(`${url}/books/999999`);
-            
+            cy.request({url: `${url}/books/999999`, failOnStatusCode: false}).its('status').should('equal', 404);
     });
+
+it('Should give an error saying the book does not exist', () => {
+   cy.visit({url: `${url}/books/999999`, failOnStatusCode: false}).contains('404');
 });
+});
+
+describe.only("Visiting a page that doesn't exist", () => {
+    it('Should give an error saying the book does not exist', () => {
+        cy.request({url: `${url}/books/999999`, failOnStatusCode: false}).its('status').should('equal', 404);
+    });
+    it('Should give an error saying the book does not exist', () => {
+        cy.visit({url: `${url}/books/999999`, failOnStatusCode: false}).contains('404');
+    });
+})
