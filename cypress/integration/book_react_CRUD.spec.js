@@ -4,7 +4,18 @@ var response_book = {
     book_title: ""
 };
 
-describe.only('User creates a new book from the form', () => {
+const fakeBook = {
+    book_id: "1",
+    title: "Cypress is Awesome!",
+    location_id: "1",
+    image: "http://facebook.com",
+    authors: "Pooya Razavian",
+    ISBN: "122-42349817",
+    date: "2011",
+    publisher: "Banana Press"
+};
+
+describe('User creates a new book from the form', () => {
     const book_title = 'Cypress is Awesome!';
 
     it('should see form on add_book page', () => {
@@ -61,16 +72,16 @@ describe.only('User creates a new book from the form', () => {
 });
 
 describe("User visits the page of a book", () => {
-    it('Should have book details', () => {
+    it.only('Should have book details', () => {
         cy.server();
-        cy.route('GET', '/api/books/1', {
-            book_id: "1",
-            book_title: "Cypress is Awesome!",
-            location_id: "1",
-            book_image: "http://facebook.com"
-        }).as('create');
+        cy.route('GET', '/api/books/1', fakeBook).as('create');
         cy.visit(`${url}/books/1`);
-        cy.get('.book-details_title').contains('Cypress is Awesome!');
+        cy.get('.book-details_title').contains(fakeBook.title);
+        cy.get('.book-details_authors').contains(fakeBook.authors);;
+        cy.get('.book-details_date').contains(fakeBook.date);;
+        cy.get('.book-details_publisher').contains(fakeBook.publisher);;
+        cy.get('.book-details_ISBN').contains(fakeBook.ISBN);;
+        cy.get('.book-details_image');
     });
 
     it('Should have a delete button', () => {

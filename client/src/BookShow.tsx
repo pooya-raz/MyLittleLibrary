@@ -47,12 +47,7 @@ class BookShow extends Component<MyProps, MyState>{
         this.handleDelete = this.handleDelete.bind(this);
 
         this.state = {
-            book: {
-                book_title: "",
-                book_image: "",
-                book_id: "",
-                location_id: ""
-            },
+            book: { }, 
             isLoading: false,
             hasError: false,
             show: false,
@@ -150,20 +145,20 @@ class BookShow extends Component<MyProps, MyState>{
                 </div>
                 <Container >
                     <div className="text-center" style={{paddingBottom: "60px"}}>
-                    <img  src="http://books.google.com/books/content?id=ScG5YqYcsEcC&printsec=frontcover&img=1&zoom=1&source=gbs_api" />
-                        <h3 className="book-details_title ">{book.book_title} </h3>
-                        <h4 className="book-details_authors">An Author</h4>
+                    <img className="book-details_image" src="http://books.google.com/books/content?id=ScG5YqYcsEcC&printsec=frontcover&img=1&zoom=1&source=gbs_api" />
+                        <h3 className="book-details_title ">{book.title} </h3>
+                        <h4 className="book-details_authors">{book.authors} </h4>
                         <Row>
                             <Col></Col>
                             <Col>
-                                <p>2004</p>
+                                <p className="book-details_date">{book.date}</p>
                             </Col>
                             <Col>
-                                <p>Publisher</p>
+                                <p className="book-details_publisher">{book.publisher}</p>
                             </Col>
                             <Col></Col>
                         </Row>
-                        <p>ISBN-13: 978-0826476975</p>
+                        <p className="book-details_ISBN">ISBN-13: {book.ISBN}</p>
                         <Button type="button"> Edit Book </Button>
                         <hr></hr>
                         <h3>Location Details</h3>
