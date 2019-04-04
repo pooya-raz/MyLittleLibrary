@@ -38,9 +38,12 @@ const deleteBook = (id: string) => {
 
 };
 
-function IdentifierList(book:any) {
-    const industryIdentifiers= [{type: "ISBN_13", identifier: "9780826476975"}];
-    const listItems = industryIdentifiers.map((ident:any) =>
+function IdentifierList(props:any) {
+    if (props.book === undefined){
+        return <p></p>
+    }
+    const book = props.book;
+    const listItems = book.map((ident:any) =>
       <li className="book-details_ISBN" key={ident.type}>
         {ident.type}: {ident.identifier}
       </li>
@@ -172,7 +175,7 @@ class BookShow extends Component<MyProps, MyState>{
                             </Col>
                             <Col></Col>
                         </Row>
-                        <IdentifierList book={book} />,
+                        <IdentifierList book={book.industryIdentifier} />,
                         <Button type="button"> Edit Book </Button>
                         <hr></hr>
                         <h3>Location Details</h3>
