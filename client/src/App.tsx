@@ -25,7 +25,7 @@ class App extends Component {
           </Navbar>
           <Switch>
           <Route path="/" exact component={SearchPage} />
-            <Route pate="/libraries" component={LibrariesPage} />
+            <Route path="/libraries" component={LibrariesPage} />
           <Route path="/books/add-book" component={BookForm} />
           <Route path="/books/:id" component={BookShow} />
           </Switch>
