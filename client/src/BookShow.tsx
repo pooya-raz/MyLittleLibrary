@@ -38,6 +38,18 @@ const deleteBook = (id: string) => {
 
 };
 
+function IdentifierList(book:any) {
+    const industryIdentifiers= [{type: "ISBN_13", identifier: "9780826476975"}];
+    const listItems = industryIdentifiers.map((ident:any) =>
+      <li className="book-details_ISBN" key={ident.type}>
+        {ident.type}: {ident.identifier}
+      </li>
+    );
+    return (
+      <ul>{listItems}</ul>
+    );
+  }
+
 class BookShow extends Component<MyProps, MyState>{
     constructor(props: MyProps) {
         super(props);
@@ -47,7 +59,7 @@ class BookShow extends Component<MyProps, MyState>{
         this.handleDelete = this.handleDelete.bind(this);
 
         this.state = {
-            book: { }, 
+            book: {},
             isLoading: false,
             hasError: false,
             show: false,
@@ -80,6 +92,8 @@ class BookShow extends Component<MyProps, MyState>{
     }
 
 
+      
+      
 
     componentDidMount() {
         this.setState({ isLoading: true });
@@ -101,11 +115,11 @@ class BookShow extends Component<MyProps, MyState>{
                 this.setState({ book: res_book, isLoading: false });
             })
             .catch(error => {
-                if (error.response.status === 404){
-                    this.setState({to404: true});
-                }else {
+                if (error.response && error.response.status === 404) {
+                    this.setState({ to404: true });
+                } else {
                     // handle error
-                    this.setState({hasError: error});
+                    this.setState({ hasError: error });
                 }
             })
             .then(function () {
@@ -115,7 +129,7 @@ class BookShow extends Component<MyProps, MyState>{
     render(
 
     ) {
-        const { book, isLoading, hasError , to404} = this.state;
+        const { book, isLoading, hasError, to404 } = this.state;
         if (this.state.toSearch === true) {
             return <Redirect
                 to={{
@@ -144,21 +158,21 @@ class BookShow extends Component<MyProps, MyState>{
           </Alert>
                 </div>
                 <Container >
-                    <div className="text-center" style={{paddingBottom: "60px"}}>
-                    <img className="book-details_image" src={book.image} />
+                    <div className="text-center" style={{ paddingBottom: "60px" }}>
+                        <img className="book-details_image" src={book.image} />
                         <h3 className="book-details_title ">{book.title} </h3>
                         <h4 className="book-details_authors">{book.authors} </h4>
                         <Row>
                             <Col></Col>
                             <Col>
-                                <p className="book-details_date">{book.date}</p>
+                                <p className="book-details_date">{book.published_date}</p>
                             </Col>
                             <Col>
                                 <p className="book-details_publisher">{book.publisher}</p>
                             </Col>
                             <Col></Col>
                         </Row>
-                        <p className="book-details_ISBN">ISBN-13: {book.ISBN}</p>
+                        <IdentifierList book={book} />,
                         <Button type="button"> Edit Book </Button>
                         <hr></hr>
                         <h3>Location Details</h3>
@@ -204,40 +218,40 @@ class BookShow extends Component<MyProps, MyState>{
                                 aria-label="Location Notes"
                                 aria-describedby="inputGroup-sizing-default"
                             />
-                            </InputGroup>
-                            <hr></hr>
-                            <Button type="button"
-                                className="book-details_delete-button js-book-details_delete-button"
-                                variant="danger"
-                                data-toggle="modal"
-                                data-target="#exampleModal"
-                                onClick={this.handleShow} >
-                                Delete Book
+                        </InputGroup>
+                        <hr></hr>
+                        <Button type="button"
+                            className="book-details_delete-button js-book-details_delete-button"
+                            variant="danger"
+                            data-toggle="modal"
+                            data-target="#exampleModal"
+                            onClick={this.handleShow} >
+                            Delete Book
                 </Button>
 
 
                     </div>
 
-                        <div>
+                    <div>
 
-                            <Modal show={this.state.show} onHide={this.handleClose}>
-                                <Modal.Header closeButton>
-                                    <Modal.Title>Delete Confirmation</Modal.Title>
-                                </Modal.Header>
-                                <Modal.Body>Are your sure that you want to delete this book?</Modal.Body>
-                                <Modal.Footer>
-                                    <Button variant="secondary" onClick={this.handleClose}>
-                                        Cancel
+                        <Modal show={this.state.show} onHide={this.handleClose}>
+                            <Modal.Header closeButton>
+                                <Modal.Title>Delete Confirmation</Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>Are your sure that you want to delete this book?</Modal.Body>
+                            <Modal.Footer>
+                                <Button variant="secondary" onClick={this.handleClose}>
+                                    Cancel
                             </Button>
-                                    <Button variant="danger" className="js-delete-book" onClick={this.handleDelete}>
-                                        Delete Book
+                                <Button variant="danger" className="js-delete-book" onClick={this.handleDelete}>
+                                    Delete Book
                             </Button>
-                                </Modal.Footer>
-                            </Modal>
-                        </div>
+                            </Modal.Footer>
+                        </Modal>
+                    </div>
                 </Container>
             </div>
-                )
-            }
-        }
-        export default BookShow;
+        )
+    }
+}
+export default BookShow;

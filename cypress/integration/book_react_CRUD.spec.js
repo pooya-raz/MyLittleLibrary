@@ -5,12 +5,12 @@ var response_book = {
 };
 
 const fakeBook = {
-    book_id: "1",
+    id: "1",
     title: "Cypress is Awesome!",
     location_id: "1",
-    authors: "Pooya Razavian",
-    ISBN: "122-42349817",
-    date: "2011",
+    authors: ["Pooya Razavian"],
+    industryIdentifier: [{type: "ISBN_13", identifier: "9780826476975"}],
+    published_date: "2011",
     publisher: "Banana Press",
     image: "http://books.google.com/books/content?id=ScG5YqYcsEcC&printsec=frontcover&img=1&zoom=1&source=gbs_api"
 };
@@ -74,13 +74,13 @@ describe('User creates a new book from the form', () => {
 describe("User visits the page of a book", () => {
     it.only('Should have book details', () => {
         cy.server();
-        cy.route('GET', '/api/books/1', fakeBook).as('create');
+        cy.route('GET', '/api/books/1', fakeBook).as('get');
         cy.visit(`${url}/books/1`);
         cy.get('.book-details_title').contains(fakeBook.title);
-        cy.get('.book-details_authors').contains(fakeBook.authors);;
-        cy.get('.book-details_date').contains(fakeBook.date);;
-        cy.get('.book-details_publisher').contains(fakeBook.publisher);;
-        cy.get('.book-details_ISBN').contains(fakeBook.ISBN);;
+        cy.get('.book-details_authors').contains(fakeBook.authors[0]);
+        cy.get('.book-details_date').contains(fakeBook.published_date);
+        cy.get('.book-details_publisher').contains(fakeBook.publisher);
+        cy.get('.book-details_ISBN').contains(fakeBook.industryIdentifier[0].identifier);
         cy.get('.book-details_image').invoke('attr','src').should('equal', fakeBook.image);
     });
 
