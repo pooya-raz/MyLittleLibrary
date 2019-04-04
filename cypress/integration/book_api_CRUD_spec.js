@@ -29,7 +29,7 @@ describe('see if new book is available', () => {
       });
 });
 
-describe.only('Requesting a record that is not available', () => {
+describe('Requesting a record that is not available', () => {
     it('Should return a 404 status', () => {
         cy.request({url: url+'/books/9999999', failOnStatusCode: false})
             .its('status')

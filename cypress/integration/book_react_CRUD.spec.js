@@ -140,7 +140,7 @@ describe("User wants to delete a book", () => {
 });
 
 
-describe("User wants details of a book that doesn't exist", () => {
+describe.only("User wants details of a book that doesn't exist", () => {
     it('Should give an error saying the book does not exist', () => {
             cy.request({url: `${url}/books/999999`, failOnStatusCode: false}).its('status').should('equal', 404);
     });

@@ -57,7 +57,8 @@ class BookShow extends Component<MyProps, MyState>{
             hasError: false,
             show: false,
             toSearch: false,
-            showAddConfirmation: false
+            showAddConfirmation: false,
+            to404: false
         }
     }
 
@@ -105,8 +106,12 @@ class BookShow extends Component<MyProps, MyState>{
                 this.setState({ book: res_book, isLoading: false });
             })
             .catch(error => {
-                // handle error
-                this.setState({ hasError: error });
+                if (error.response.status === 404){
+                    this.setState({to404: true});
+                }else {
+                    // handle error
+                    this.setState({hasError: error});
+                }
             })
             .then(function () {
                 // always executed
@@ -115,12 +120,17 @@ class BookShow extends Component<MyProps, MyState>{
     render(
 
     ) {
-        const { book, isLoading, hasError } = this.state;
+        const { book, isLoading, hasError , to404} = this.state;
         if (this.state.toSearch === true) {
             return <Redirect
                 to={{
                     pathname: '/',
                     state: { showDeleteConfirmation: true }
+                }} />
+        } else if (to404) {
+            return <Redirect
+                to={{
+                    pathname: '/404',
                 }} />
         } else if (hasError) {
             return (
