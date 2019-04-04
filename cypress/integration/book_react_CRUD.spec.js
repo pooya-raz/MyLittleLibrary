@@ -155,6 +155,6 @@ describe.only("Visiting a page that doesn't exist", () => {
         cy.request({url: `${url}/books/999999`, failOnStatusCode: false}).its('status').should('equal', 404);
     });
     it('Should give an error saying the book does not exist', () => {
-        cy.visit({url: `${url}/books/999999`, failOnStatusCode: false}).contains('404');
+        cy.visit({url: `${url}/999999`, failOnStatusCode: false}).contains('404');
     });
-})
+});

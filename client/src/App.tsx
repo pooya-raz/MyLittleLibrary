@@ -29,7 +29,7 @@ class App extends Component {
             <Route path="/libraries" component={LibrariesPage} />
           <Route path="/books/add-book" component={BookForm} />
           <Route path="/books/:id" component={BookShow} />
-          <Route path="" component={NotFound} />
+          <Route component={NotFound} />
           </Switch>
         </div>
       </Router>
