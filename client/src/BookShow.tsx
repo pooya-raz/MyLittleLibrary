@@ -56,7 +56,7 @@ class BookShow extends Component<MyProps, MyState>{
             isLoading: false,
             hasError: false,
             show: false,
-            toLibraries: false,
+            toSearch: false,
             showAddConfirmation: false
         }
     }
@@ -75,7 +75,7 @@ class BookShow extends Component<MyProps, MyState>{
             .then(response => {
                 this.handleClose
                 this.setState(() => ({
-                    toLibraries: true
+                    toSearch: true
                 }));
             })
             .catch(err => {
@@ -116,10 +116,10 @@ class BookShow extends Component<MyProps, MyState>{
 
     ) {
         const { book, isLoading, hasError } = this.state;
-        if (this.state.toLibraries === true) {
+        if (this.state.toSearch === true) {
             return <Redirect
                 to={{
-                    pathname: '/libraries',
+                    pathname: '/',
                     state: { showDeleteConfirmation: true }
                 }} />
         } else if (hasError) {

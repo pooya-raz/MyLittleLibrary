@@ -9,7 +9,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Alert from 'react-bootstrap/Alert'
 
-//this is necessary so typescipt knows props has location
+//this is necessary so TypeScript knows props has location
 interface MyProps extends RouteComponentProps {
 }
 

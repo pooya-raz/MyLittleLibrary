@@ -82,7 +82,7 @@ describe("User visits the page of a book", () => {
     });
 });
 
-describe.only("User wants to delete a book", () => {
+describe("User wants to delete a book", () => {
     it('Should load books details page', () => {
         cy.server();
         cy.route('GET', '/api/books/1', {
@@ -92,7 +92,7 @@ describe.only("User wants to delete a book", () => {
             book_image: "http://facebook.com"
         }).as('getBook');
         cy.visit(`${url}/books/1`);
-        cy.wait('@getBook')
+        cy.wait('@getBook');
     });
 
     it('Clicking delete should reveal modal', () => {
