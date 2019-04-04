@@ -8,11 +8,11 @@ const fakeBook = {
     book_id: "1",
     title: "Cypress is Awesome!",
     location_id: "1",
-    image: "http://facebook.com",
     authors: "Pooya Razavian",
     ISBN: "122-42349817",
     date: "2011",
-    publisher: "Banana Press"
+    publisher: "Banana Press",
+    image: "http://books.google.com/books/content?id=ScG5YqYcsEcC&printsec=frontcover&img=1&zoom=1&source=gbs_api"
 };
 
 describe('User creates a new book from the form', () => {
@@ -81,7 +81,7 @@ describe("User visits the page of a book", () => {
         cy.get('.book-details_date').contains(fakeBook.date);;
         cy.get('.book-details_publisher').contains(fakeBook.publisher);;
         cy.get('.book-details_ISBN').contains(fakeBook.ISBN);;
-        cy.get('.book-details_image');
+        cy.get('.book-details_image').invoke('attr','src').should('equal', fakeBook.image);
     });
 
     it('Should have a delete button', () => {

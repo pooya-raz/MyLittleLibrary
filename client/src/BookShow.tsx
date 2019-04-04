@@ -145,7 +145,7 @@ class BookShow extends Component<MyProps, MyState>{
                 </div>
                 <Container >
                     <div className="text-center" style={{paddingBottom: "60px"}}>
-                    <img className="book-details_image" src="http://books.google.com/books/content?id=ScG5YqYcsEcC&printsec=frontcover&img=1&zoom=1&source=gbs_api" />
+                    <img className="book-details_image" src={book.image} />
                         <h3 className="book-details_title ">{book.title} </h3>
                         <h4 className="book-details_authors">{book.authors} </h4>
                         <Row>
