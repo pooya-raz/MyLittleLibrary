@@ -2,27 +2,27 @@ interface IndustryIdentifier {
     type: string,
      identifier: string 
 }
-interface Name
-{id: number;
+interface IBook
+{id?: number;
 title: string;
-location_id: number;
-authors: Array<string>;
-industryIdentifier: Array<IndustryIdentifier>;
-published_date: number;
-publisher: string;
-image_url: string}
+location_id?: number;
+authors?: Array<string>;
+industryIdentifier?: Array<IndustryIdentifier>;
+published_date?: number;
+publisher?: string;
+image_url?: string}
 
 export class Book {
-    id: number;
+    id?: number;
     title: string;
-    location_id: number;
-    authors: Array<string>;
-    industryIdentifier: Array<IndustryIdentifier>;
-    published_date: number;
-    publisher: string;
-    image_url: string
+    location_id?: number;
+    authors?: Array<string>;
+    industryIdentifier?: Array<IndustryIdentifier>;
+    published_date?: number;
+    publisher?: string;
+    image_url?: string
 
-    constructor(bookResponse:Name ){
+    constructor(bookResponse:IBook){
         this.id = bookResponse.id;
         this.title = bookResponse.title;
         this.location_id = bookResponse.location_id;

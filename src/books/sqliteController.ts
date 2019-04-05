@@ -16,3 +16,25 @@ export const getBook = (id: string):Promise<Book>=> {
         })
     })
 }
+
+// Book -> Book
+// Inserts book to database, then returns book with id
+export const insertBook = (book:Book):Promise<any> => {
+    return new Promise((resolve)=> {
+        db.run(`INSERT INTO books(title,publisher, published_date, image_url) VALUES(?,?,?,?)`,
+         [book.title, book.publisher, book.published_date, book.image_url], function(this:{lastID:number}, err: { message: any; }) {
+            if (err) {
+              return console.log(err.message);
+            }
+            // get the last insert id
+            const newbook = new Book({
+                title: book.title,
+                publisher: book.publisher,
+                published_date: book.published_date,
+                image_url: book.image_url,
+                id: this.lastID
+            })
+            return resolve(newbook);
+          });
+    })
+}

@@ -1,4 +1,5 @@
 import sqliteController = require('./sqliteController');
+import { Book } from './Book';
 
 describe('book_detail', () => {
     
@@ -18,4 +19,22 @@ describe('book_detail', () => {
                     .toEqual(undefined)
             });
     });
+
 });
+
+describe('Insert a book to SQLite', () => {
+     it('should succesfuly insert a book and return with book including id', () => {
+        const fakeBook:Book= {
+            title: "hello",
+            published_date: 2020,
+            publisher: "Fake Publisher",
+            image_url: "Fake-url.com"
+        }
+        expect.assertions(1);
+        return sqliteController.insertBook(fakeBook)
+            .then(res => {
+                expect(res)
+                    .toBeInstanceOf(Book)
+            });
+    });
+})
