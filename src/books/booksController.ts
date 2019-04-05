@@ -1,4 +1,5 @@
 import { Request, Response} from 'express';
+import { getBook } from './sqliteController';
 var db = require("../databaseConnection");
 
 interface Book {
@@ -30,12 +31,21 @@ export const book_list = function(req: Request, res: Response) {
 };
 // Display detail page for a specific book.
 export const book_detail = function(req: Request, res: Response) {
+    getBook(req.params.id).then(row => {
+        (row)
+        ? res.send(row)
+        : res.status(404)        // HTTP status 404: NotFound
+            .send('Not found');
+
+    })
+    /*
     db.get(`SELECT book_id, book_title, location_id, book_image FROM books WHERE book_id = ?`, [req.params.id], (err: Error,row: Book) => {
         return row
             ? res.send(row)
             : res.status(404)        // HTTP status 404: NotFound
                 .send('Not found');
     });
+    */
 };
 
 // Display book create form on GET.

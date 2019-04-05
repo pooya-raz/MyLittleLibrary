@@ -1,7 +1,8 @@
 import sqliteController = require('./sqliteController');
 
 describe('book_detail', () => {
-    it('should return JSON details of the book', () => {
+    
+    it('Should return JSON details of an existing book', () => {
         expect.assertions(1);
         return sqliteController.getBook('27')
             .then(res => {
@@ -12,6 +13,14 @@ describe('book_detail', () => {
                         "book_title": "2314",
                         "location_id": null
                     })
+            });
+    });
+    it('should return undefined for non-existing book', () => {
+        expect.assertions(1);
+        return sqliteController.getBook('9999999999')
+            .then(res => {
+                expect(res)
+                    .toEqual(undefined)
             });
     });
 });
