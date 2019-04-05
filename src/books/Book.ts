@@ -2,6 +2,15 @@ interface IndustryIdentifier {
     type: string,
      identifier: string 
 }
+interface Name
+{id: number;
+title: string;
+location_id: number;
+authors: Array<string>;
+industryIdentifier: Array<IndustryIdentifier>;
+published_date: number;
+publisher: string;
+image_url: string}
 
 export class Book {
     id: number;
@@ -13,7 +22,7 @@ export class Book {
     publisher: string;
     image_url: string
 
-    constructor(bookResponse:any ){
+    constructor(bookResponse:Name ){
         this.id = bookResponse.id;
         this.title = bookResponse.title;
         this.location_id = bookResponse.location_id;

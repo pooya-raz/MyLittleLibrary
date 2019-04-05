@@ -1,15 +1,10 @@
 import { Request, Response} from 'express';
 import { getBook } from './sqliteController';
+import {Book} from './Book';
 var db = require("../databaseConnection");
 
-interface Book {
-    book_title: string,
-    book_id: number,
-    location_id:number
-}
-
 interface BookParams{
-    book_title: string,
+    title: string,
     location_id: number,
 }
 
@@ -29,14 +24,19 @@ export const book_list = function(req: Request, res: Response) {
         }
     });
 };
-// Display detail page for a specific book.
-export const book_detail = function(req: Request, res: Response) {
-    getBook(req.params.id).then(row => {
-        (row)
-        ? res.send(row)
-        : res.status(404)        // HTTP status 404: NotFound
-            .send('Not found');
 
+// Display detail page for a specific book.
+export const book_detail = function(req: Request, res: Response):void {
+    //Book -> Response
+    // Get Book from database-service and pass it to response
+    getBook(req.params.id).then(row => {
+        if (row) {
+            let book = new Book(row);
+            res.send(book)
+        } else {
+            res.status(404)        // HTTP status 404: NotFound
+            .send('Not found');
+        }
     })
     /*
     db.get(`SELECT book_id, book_title, location_id, book_image FROM books WHERE book_id = ?`, [req.params.id], (err: Error,row: Book) => {
@@ -59,18 +59,18 @@ export const book_create_post = function(req:Request, res:Response):void {
     
     //create book json
     var book_params:BookParams = {
-        book_title: req.body.book_title,
+        title: req.body.title,
         location_id: req.body.location_id
       };
     
     // insert one row into the books table
-    db.run(`INSERT INTO books(book_title,location_id) VALUES(?,?)`, [book_params.book_title, book_params.location_id], function(this:{lastID:number}, err: { message: any; }) {
+    db.run(`INSERT INTO books(title,location_id) VALUES(?,?)`, [book_params.title, book_params.location_id], function(this:{lastID:number}, err: { message: any; }) {
     if (err) {
       return console.log(err.message);
     }
     // get the last insert id
-    const book: Book = {
-        book_title: req.body.book_title,
+    const book = {
+        title: req.body.title,
         location_id: req.body.location_id,
         book_id: this.lastID
     }
