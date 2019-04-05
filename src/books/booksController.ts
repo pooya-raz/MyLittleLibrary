@@ -12,10 +12,6 @@ interface BookParams{
     location_id: number,
 }
 
-export const adder = (x:number, y:number):number => {
-    return x + y
-}
-
 export const index = function(req: Request, res: Response) {
     db.all(`SELECT book_title, location_id FROM books;`, [], (err: any,rows: any) => {
         return res.send(rows);
