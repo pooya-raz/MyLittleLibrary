@@ -1,11 +1,17 @@
+import { Book } from "./Book";
+
 var db = require("../databaseConnection");
-export const getBook = (id: string) => {
+
+export const getBook = (id: string):Promise<Book>=> {
     return new Promise(function (resolve) {
-        db.get(`SELECT book_id, book_title, location_id, book_image FROM books WHERE book_id = ?`, id, (err: Error, row: any) => {
+        db.get(`SELECT id, title, published_date, publisher, location_id FROM books WHERE id=?`, id, (err: Error, row: any) => {
             if (err) {
                 console.log(err)
-            } else {
+            } else if (row === undefined) {
                 resolve(row)
+            } else {
+                let book = new Book (row)
+                resolve(book)
             }
         })
     })

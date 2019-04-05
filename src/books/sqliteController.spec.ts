@@ -7,12 +7,7 @@ describe('book_detail', () => {
         return sqliteController.getBook('27')
             .then(res => {
                 expect(res)
-                    .toEqual({
-                        "book_id": 27,
-                        "book_image": null,
-                        "book_title": "2314",
-                        "location_id": null
-                    })
+                    .toEqual({"authors": undefined, "id": 27, "image_url": undefined, "industryIdentifier": undefined, "location_id": null, "published_date": null, "publisher": null, "title": "2314"})
             });
     });
     it('should return undefined for non-existing book', () => {
