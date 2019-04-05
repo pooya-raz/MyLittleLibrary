@@ -1,5 +1,5 @@
 import { Request, Response} from 'express';
-import { getBook } from './sqliteController';
+import { getBook, insertBook} from './sqliteController';
 import {Book} from './Book';
 var db = require("../databaseConnection");
 
@@ -56,7 +56,9 @@ export const book_create_get = function(req: Request, res: Response) {
 // Handle book create on POST.
 
 export const book_create_post = function(req:Request, res:Response):void {
-    
+
+    insertBook(req.body).then(book => {res.json(book)});
+   /* 
     //create book json
     var book_params:BookParams = {
         title: req.body.title,
@@ -74,8 +76,8 @@ export const book_create_post = function(req:Request, res:Response):void {
         location_id: req.body.location_id,
         book_id: this.lastID
     }
-    return res.json(book);
-  });
+    */
+    
 };
 
 // Display book delete form on GET.

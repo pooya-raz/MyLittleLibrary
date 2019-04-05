@@ -1,8 +1,9 @@
-const url = Cypress.env('api_server')
+const url = Cypress.env('api_server');
 
 const book1 = {title: "Cypress Book1"};
 const book2 = {title: "Cypress Book2", location_id: "1"};
 const book3 = {title: "Cypress Book2", author:"Batman"};
+const book4 = {title:""};
 
 describe('create a new book', () => {
     it('Sends a JSON and returns a JSON', () => {
@@ -11,6 +12,14 @@ describe('create a new book', () => {
             .then((response) => {
             // response.body is automatically serialized into JSON
             expect(response.body).to.have.property('title', book1.title);
+        });
+    });
+    it('Should throw an error when posting a book with empty string as title', () => {
+        cy
+            .request({method: 'POST', url: url + '/books/add-book', body: book4, failOnStatusCode: false})
+            .then((response) => {
+            // response.body is automatically serialized into JSON
+            expect(response).to.have.property('status', 500);
         });
     });
 });
