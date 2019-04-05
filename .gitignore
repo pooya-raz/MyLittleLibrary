@@ -94,3 +94,6 @@ typings/
 
 # WebStorm IDE stuff
 .idea
+
+# VScode stuff
+.vscode
