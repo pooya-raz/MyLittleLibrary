@@ -50,3 +50,12 @@ describe('Edit a book',() => {
         })
     })
 })
+describe('Edit a book',() => {
+    it('Should edit the title of book', () => {
+        expect.assertions(1);
+        return sqliteController.deleteBook(6)
+        .then(res => {
+            expect(res).toEqual({wasDeleted: true});
+        })
+    })
+});

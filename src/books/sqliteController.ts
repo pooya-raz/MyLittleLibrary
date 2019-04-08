@@ -52,3 +52,21 @@ export const updateBook = (field: any): Promise<any> => {
 
     })
 }
+
+export const deleteBook= (id:number): Promise<any> => {
+    return new Promise((resolve) => {
+        //
+        let data = id;
+        let sql = `DELETE FROM books
+            WHERE id = ?`;
+
+        db.run(sql, data,(err:any) => {
+            if (err) {
+                return resolve(err.message);
+            }
+            return resolve({wasDeleted:true});
+
+        });
+
+    })
+}
