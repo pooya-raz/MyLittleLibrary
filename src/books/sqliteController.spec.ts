@@ -40,3 +40,13 @@ describe('Insert a book to SQLite', () => {
             });
     });
 })
+
+describe('Edit a book',() => {
+    it('Should edit the title of book', () => {
+        expect.assertions(1);
+        return sqliteController.updateBook({title:"Updated title"})
+        .then(res => {
+            expect(res).toEqual({wasUpdated: true});
+        })
+    })
+})

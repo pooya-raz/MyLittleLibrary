@@ -33,3 +33,22 @@ export const insertBook = (book: Book): Promise<any> => {
             });
     })
 }
+
+export const updateBook = (field: any): Promise<any> => {
+    return new Promise((resolve) => {
+        //
+        let data = ['Hello From Express', 6];
+        let sql = `UPDATE books
+            SET title = ?
+            WHERE id = ?`;
+
+        db.run(sql, data,(err:any) => {
+            if (err) {
+                return resolve(err.message);
+            }
+            return resolve({wasUpdated:true});
+
+        });
+
+    })
+}
