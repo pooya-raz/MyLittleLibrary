@@ -84,7 +84,7 @@ class BookShow extends Component<MyProps, MyState>{
     handleDelete() {
         axios.post(`/api/books/${this.state.book.book_id}/delete`)
             .then(response => {
-                this.handleClose
+                this.handleClose()
                 this.setState(() => ({
                     toSearch: true
                 }));
