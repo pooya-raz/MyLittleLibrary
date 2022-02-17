@@ -41,21 +41,39 @@ describe('Insert a book to SQLite', () => {
     });
 })
 
-describe('Edit a book',() => {
+describe('Edit a book', () => {
     it('Should edit the title of book', () => {
         expect.assertions(1);
-        return sqliteController.updateBook({title:"Updated title"})
-        .then(res => {
-            expect(res).toEqual({wasUpdated: true});
-        })
+        return sqliteController.updateBook({ title: "Updated title" })
+            .then(res => {
+                expect(res).toEqual({ wasUpdated: true });
+            })
     })
 })
-describe('Edit a book',() => {
+describe('Edit a book', () => {
     it('Should edit the title of book', () => {
         expect.assertions(1);
         return sqliteController.deleteBook(6)
-        .then(res => {
-            expect(res).toEqual({wasDeleted: true});
-        })
+            .then(res => {
+                expect(res).toEqual({ wasDeleted: true });
+            })
     })
 });
+
+describe.only('tester', () => {
+    it('Should return a SQL string given an array of strings', () => {
+        let frags0 = []
+        let frags1 = ["title = 'Happy Title'"]
+        let frags2 = ["title = 'Happy Title'", "publisher = 'Happy Publisher'"]
+        expect(sqliteController.setFragmentsToSqlStatement(frags1))
+            .toEqual("UPDATE books SET title = 'Happy Title' WHERE id = ?")
+        expect(sqliteController.setFragmentsToSqlStatement(frags2))
+            .toEqual("UPDATE books SET title = 'Happy Title', publisher = 'Happy Publisher' WHERE id = ?")
+    })
+    it('Should return a SQL UPDATE statement', () => {
+        let field1:any= {title:"New Title"}
+        let field2= {title: "New Title", publisher: "New Publisher"}
+        expect(sqliteController.bookToSQL(field1))
+            .toEqual("UPDATE books SET title = 'New Title' WHERE id = ?");
+    })
+})

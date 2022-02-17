@@ -52,6 +52,43 @@ export const updateBook = (field: any): Promise<any> => {
 
     })
 }
+//Field -> SetSQLFragment
+// Converts a field key-value pair in into a set fragment of SQL statement
+const fieldToSetSQLFragment = (field:any):string => {
+    if (Object.keys(field).length === 0 && field.constructor === Object){
+    throw('Empty object not allowed');
+    } else if (Object.keys(field).length > 1 ) {
+    let number = Object.keys(field).length
+    throw(`Expected 1 field received ${number}`);
+    } else{
+    let key = Object.keys(field)[0]
+    let value = field[key]
+    let SetSQLFragment = `${key} = '${value}'`;
+    return SetSQLFragment
+    }
+}
+//[SetSQLFragment] -> UpdateSQLStatment
+//Collects an array of SetSQLFragments and returns a complete SQL UPDATE statement
+export const setFragmentsToSqlStatement = (setFragments:Array<string>):string =>{
+    if (setFragments.length === 0){
+        throw 'Cannot be an empty array'
+    }
+    let setString = ""
+    setFragments.forEach(frag => {setString = setString + frag + ', '})
+    setString = setString.slice(0, -2);
+    let SQLStatement = "UPDATE books SET " + setString + ' WHERE id = ?'
+    return SQLStatement
+}
+
+//Book -> UpdateSQLStatement
+//Transforms a variety of fields from a book to an SQL Statment
+export const bookToSQL = (book:any) => {
+    let fieldArray = []
+    for (const key of Object.keys(book)) {
+        fieldArray.push(fieldToSetSQLFragment({key: book[key]}));
+    }
+    return fieldArray
+}
 
 export const deleteBook= (id:number): Promise<any> => {
     return new Promise((resolve) => {
